@@ -7,6 +7,15 @@ public class ProductOption {
 	private String color;
 	private Integer quantity;
 
+	
+	
+	
+	public ProductOption(String size, String color, Integer quantity) {
+		this.size = size;
+		this.color = color;
+		this.quantity = quantity;
+	}
+
 	public Integer getId() {
 		return id;
 	}

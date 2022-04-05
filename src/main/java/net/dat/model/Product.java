@@ -1,6 +1,7 @@
 package net.dat.model;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,17 +10,29 @@ public class Product {
 	private String name;
 	private BigDecimal price;
 	private String description;
-	private List<String> images;
+	private String images;
+	private Set<ProductOption> options;
 
 	public Set<ProductOption> getOptions() {
 		return options;
 	}
 
-	public void setOptions(Set<ProductOption> options) {
-		this.options = options;
+	public Product(String name, BigDecimal price, String description, String images) {
+		
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.images = images;
+		this.options = new HashSet<ProductOption>();
 	}
 
-	private Set<ProductOption> options;
+	public boolean addOption(ProductOption opt) {
+		if (!options.contains(opt)) {
+			opt.setProduct(this);
+			options.add(opt);
+		}
+		return false;
+	}
 
 	public Integer getId() {
 		return id;
@@ -53,11 +66,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public List<String> getImages() {
+	public String getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(String images) {
 		this.images = images;
 	}
 
