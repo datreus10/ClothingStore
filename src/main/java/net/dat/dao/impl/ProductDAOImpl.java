@@ -3,10 +3,20 @@ package net.dat.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import net.dat.dao.ProductDAO;
 import net.dat.model.Product;
 
+@Repository
 public class ProductDAOImpl implements ProductDAO {
+
+	private final JdbcTemplate jdbcTemplate;
+	
+	public ProductDAOImpl(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	@Override
 	public int add(Product newProduct) {
