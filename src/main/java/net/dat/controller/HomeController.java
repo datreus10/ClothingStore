@@ -20,10 +20,9 @@ public class HomeController {
 	private UserService userService;
 	
 	@RequestMapping(value="/")
-	public ModelAndView test(HttpServletResponse response) throws IOException{
-		for (User user : userService.getUsers()) {
-			System.out.println(user);
-		}
-		return new ModelAndView("home");
+	public ModelAndView listUser(ModelAndView model) {
+		model.addObject("listUser", userService.getUsers());
+		model.setViewName("index");
+		return model;
 	}
 }
