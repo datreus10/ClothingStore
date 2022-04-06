@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int add(User user) {
+	public int save(User user) {
 		String sql = "INSERT INTO user(username,password,fullname,phone,address,role) VALUES (?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getFullname(), user.getPhone(),
 				user.getAddress(), user.getRole());
@@ -54,19 +54,27 @@ public class UserDAOImpl implements UserDAO {
 		return jdbcTemplate.query(sql, new UserRowMapper());
 
 	}
-	
-	class UserRowMapper implements RowMapper<User>{
+
+	class UserRowMapper implements RowMapper<User> {
 
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new User(rs.getInt("id"),
-					rs.getString("username"),
-					rs.getString("password"),
-					rs.getString("fullname"),
-					rs.getString("phone"),
-					rs.getString("address"),
-					rs.getString("role"));		
+			return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"),
+					rs.getString("fullname"), rs.getString("phone"), rs.getString("address"), rs.getString("role"));
 		}
+
+	}
+
+	@Override
+	public User validateUser(User loginUser) {
+		String sql = new StringBuffer()
+				.append("select * from user where username='")
+				.append(loginUser.getUsername())
+				.append("' and password='")
+				.append(loginUser.getPassword()+"'").toString();
+		List<User> users = jdbcTemplate.query(sql, new UserRowMapper());
+
+	    return users.size() > 0 ? users.get(0) : null;
 		
 	}
 

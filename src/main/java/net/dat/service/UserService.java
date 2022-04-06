@@ -17,7 +17,7 @@ public class UserService {
 	}
 
 	public void addNewUser(User user) {
-		int result = userDAO.add(user);
+		int result = userDAO.save(user);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 	}
@@ -29,5 +29,9 @@ public class UserService {
 
 	public List<User> getUsers() {
 		return userDAO.getAll();
+	}
+	
+	public User validateUser(User loginUser) {
+		return userDAO.validateUser(loginUser);
 	}
 }

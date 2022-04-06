@@ -25,4 +25,5 @@ public class HomeController {
 		model.setViewName("index");
 		return model;
 	}
+	
 }

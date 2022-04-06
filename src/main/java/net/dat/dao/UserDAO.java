@@ -6,7 +6,7 @@ import java.util.Optional;
 import net.dat.model.User;
 
 public interface UserDAO {
-	public int add(User user);
+	public int save(User user);
 
 	public int update(User user);
 
@@ -15,4 +15,6 @@ public interface UserDAO {
 	public Optional<User> getById(Integer id);
 
 	public List<User> getAll();
+	
+	 User validateUser(User loginUser);
 }

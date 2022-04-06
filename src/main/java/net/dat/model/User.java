@@ -74,6 +74,9 @@ public class User {
 		this.address = address;
 		this.role = role;
 	}
+	
+	public User() {
+	}
 
 	public User(Integer id, String username, String password, String fullname, String phone, String address,
 			String role) {
