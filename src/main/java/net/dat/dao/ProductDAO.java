@@ -7,7 +7,7 @@ import net.dat.model.Product;
 
 public interface ProductDAO {
 
-	int add(Product newProduct);
+	int save(Product newProduct);
 
 	List<Product> getAll();
 

@@ -12,7 +12,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -34,7 +33,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int add(Product newProduct) {
+	public int save(Product newProduct) {
 		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		int result = jdbcTemplate.update(new PreparedStatementCreator() {

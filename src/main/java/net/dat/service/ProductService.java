@@ -15,7 +15,7 @@ public class ProductService {
 	}
 
 	public void addProduct(Product p) {
-		int result = productDAO.add(p);
+		int result = productDAO.save(p);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 	}

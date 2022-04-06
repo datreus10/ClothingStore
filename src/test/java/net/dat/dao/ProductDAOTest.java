@@ -24,7 +24,7 @@ class ProductDAOTest {
 	void setup(){
 		dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/clothing_store");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/clothing_store?useSSL=false");
 		dataSource.setUsername("d");
 		dataSource.setPassword("28220000");
 		
@@ -36,7 +36,7 @@ class ProductDAOTest {
 		Product p = new Product("Áo thun", new BigDecimal("100000"), "Áo siêu đẹp, thoáng mát", "at1.jpg,at2.jpg");
 		p.addOption(new ProductOption("XL", "white", 10));
 		p.addOption(new ProductOption("L", "red", 5));
-		productDAO.add(p);
+		productDAO.save(p);
 	}
 
 	@Test
