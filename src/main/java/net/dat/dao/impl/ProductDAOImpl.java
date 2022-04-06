@@ -5,13 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -35,7 +39,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public int save(Product newProduct) {
 		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
-		KeyHolder keyHolder = new GeneratedKeyHolder();
+		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
 		int result = jdbcTemplate.update(new PreparedStatementCreator() {
 
 			@Override
@@ -51,17 +55,36 @@ public class ProductDAOImpl implements ProductDAO {
 		if (result > 0) {
 			Integer productId = keyHolder.getKey().intValue();
 			newProduct.setId(productId);
-			for (ProductOption pOpt : newProduct.getOptions()) {
-				productOptionDAO.add(pOpt);
-			}
+			productOptionDAO.addList(newProduct.getOptions());
 		}
 		return result;
 	}
 
 	@Override
 	public List<Product> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM product a,product_option b WHERE a.id=b.product_id LIMIT 100;";
+		return jdbcTemplate.query(sql, new ResultSetExtractor<List<Product>>() {
+
+			@Override
+			public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<Integer, Product> map = new HashMap<Integer, Product>();
+				while(rs.next()) {
+					Integer productId = rs.getInt("product_id");
+					if(!map.containsKey(productId)) {
+						map.put(productId, new Product());
+						Product p = map.get(productId);
+						p.setId(productId);
+						p.setName(rs.getString("name"));
+						p.setDescription(rs.getString("description"));
+						p.setPrice(rs.getBigDecimal("price"));
+						p.setImages(rs.getString("images"));
+					}
+					map.get(productId).addOption(new ProductOption(rs.getString("size"), rs.getString("color"), rs.getInt("quantity")));	
+				}
+				return new ArrayList<Product>(map.values());
+			}
+			
+		});
 	}
 
 	@Override
@@ -74,8 +97,8 @@ public class ProductDAOImpl implements ProductDAO {
 				Product p = null;
 				while (rs.next()) {
 					if (p == null)
-						p = new Product(rs.getString("name"), rs.getBigDecimal("price"), rs.getString("description"),
-								rs.getString("images"));
+						p = new Product(rs.getInt("id"), rs.getString("name"), rs.getBigDecimal("price"),
+								rs.getString("description"), rs.getString("images"));
 
 					p.addOption(new ProductOption(rs.getString("size"), rs.getString("color"), rs.getInt("quantity")));
 				}
@@ -96,4 +119,5 @@ public class ProductDAOImpl implements ProductDAO {
 		return 0;
 	}
 
+	
 }

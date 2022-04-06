@@ -1,9 +1,8 @@
 package net.dat.model;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Product {
 	private Integer id;
@@ -11,19 +10,27 @@ public class Product {
 	private BigDecimal price;
 	private String description;
 	private String images;
-	private Set<ProductOption> options;
+	private List<ProductOption> options;
 
-	public Set<ProductOption> getOptions() {
+	public List<ProductOption> getOptions() {
 		return options;
 	}
 
+	public Product() {
+		this.options = new ArrayList<ProductOption>();
+	}
+
+	public Product(Integer id, String name, BigDecimal price, String description, String images) {
+		this(name, price, description, images);
+		this.id = id;
+	}
+
 	public Product(String name, BigDecimal price, String description, String images) {
-		
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.images = images;
-		this.options = new HashSet<ProductOption>();
+		this.options = new ArrayList<ProductOption>();
 	}
 
 	public boolean addOption(ProductOption opt) {

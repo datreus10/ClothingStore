@@ -45,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public Optional<User> getById(Integer userId) {
 		String sql = "SELECT * FROM user where id=" + userId;
-		return jdbcTemplate.query(sql, new UserRowMapper(),userId).stream().findFirst();
+		return jdbcTemplate.query(sql, new UserRowMapper()).stream().findFirst();
 	}
 
 	@Override
