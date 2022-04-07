@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import net.dat.dao.UserDAO;
+import net.dat.dto.AuthUserDTO;
 import net.dat.exception.NotFoundException;
+import net.dat.exception.UnauthorizedException;
 import net.dat.model.User;
 
 @Service
@@ -30,8 +32,11 @@ public class UserService {
 	public List<User> getUsers() {
 		return userDAO.getAll();
 	}
-	
-	public User validateUser(User loginUser) {
-		return userDAO.validateUser(loginUser);
+
+	public AuthUserDTO validateUser(User loginUser) {
+		User user = userDAO.validateUser(loginUser);
+		if (user == null)
+			throw new UnauthorizedException("Incorrect username/password");
+		return new AuthUserDTO(user.getId(), user.getUsername(), user.getFullname(), user.getRole());
 	}
 }

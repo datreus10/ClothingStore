@@ -67,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User validateUser(User loginUser) {
-		String sql = new StringBuffer()
+		String sql = new StringBuilder()
 				.append("select * from user where username='")
 				.append(loginUser.getUsername())
 				.append("' and password='")
