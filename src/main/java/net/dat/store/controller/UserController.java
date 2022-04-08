@@ -2,6 +2,8 @@ package net.dat.store.controller;
 
 
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.dat.store.dto.AuthUserDTO;
@@ -57,12 +60,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/admin/customer",method = RequestMethod.GET)
-	public ModelAndView getAdminCustomer(HttpServletRequest req, HttpServletResponse res) {
-		
+	public ModelAndView getAdminCustomer(HttpServletRequest req, HttpServletResponse res) {	
 		ModelAndView mv= new ModelAndView("admin/customer");
-		
 		mv.addObject("users", userService.getUsers());
 		mv.addObject("activeBar", 1);
 		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/customer/delete",method = RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteCustomer(HttpServletRequest req, HttpServletResponse res) {	
+		
+		int result= userService.deleteUserById(req.getParameter("userId"));
+		return String.format("{\"success\":%d}", result);
 	}
 }

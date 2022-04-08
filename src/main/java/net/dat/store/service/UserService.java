@@ -38,4 +38,12 @@ public class UserService {
 				.orElseThrow(() -> new UnauthorizedException("Incorrect username/password"));
 		return new AuthUserDTO(user.getId(), user.getUsername(), user.getFullname(), user.getRole());
 	}
+
+	public int deleteUserById(String userId) {
+		Integer usrId = Integer.valueOf(userId);
+		int rowAffect = userDAO.delete(usrId);
+		if (rowAffect < 1)
+			throw new IllegalStateException("Can not delete user with id=" + userId);
+		return rowAffect;
+	}
 }
