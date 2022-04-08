@@ -51,8 +51,18 @@ public class UserController {
 
 	@RequestMapping(value = "/admin")
 	public ModelAndView adminPage(HttpServletRequest req, HttpServletResponse res) {
-		ModelAndView mv= new ModelAndView("indexAdmin");
+		ModelAndView mv= new ModelAndView("admin/index");
 		mv.addObject("activeBar", 0);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/customer",method = RequestMethod.GET)
+	public ModelAndView getAdminCustomer(HttpServletRequest req, HttpServletResponse res) {
+		
+		ModelAndView mv= new ModelAndView("admin/customer");
+		
+		mv.addObject("users", userService.getUsers());
+		mv.addObject("activeBar", 1);
 		return mv;
 	}
 }
