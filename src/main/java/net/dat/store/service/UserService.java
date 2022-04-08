@@ -34,10 +34,8 @@ public class UserService {
 	}
 
 	public AuthUserDTO validateUser(User loginUser) {
-		User user = userDAO.validateUser(loginUser);
-		if (user == null)
-			throw new UnauthorizedException("Incorrect username/password");
+		User user = userDAO.validateUser(loginUser)
+				.orElseThrow(() -> new UnauthorizedException("Incorrect username/password"));
 		return new AuthUserDTO(user.getId(), user.getUsername(), user.getFullname(), user.getRole());
 	}
 }
-

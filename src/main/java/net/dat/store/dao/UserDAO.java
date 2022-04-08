@@ -16,5 +16,5 @@ public interface UserDAO {
 
 	public List<User> getAll();
 	
-	 User validateUser(User loginUser);
+	Optional<User> validateUser(User loginUser);
 }

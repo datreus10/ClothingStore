@@ -5,10 +5,8 @@ import java.time.LocalDateTime;
 
 public class Order {
 	private Integer id;
-	private Integer user_id;
+	private Integer userId;
 	private LocalDateTime orderDate;
-	private BigDecimal totalOrginalPrice;
-	private BigDecimal discount;
 	private BigDecimal totalPrice;
 	private Integer totalQuantity;
 	private String payment;
@@ -22,12 +20,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUser_id(Integer userId) {
+		this.userId = userId;
 	}
 
 	public LocalDateTime getOrderDate() {
@@ -36,22 +34,6 @@ public class Order {
 
 	public void setOrderDate(LocalDateTime orderDate) {
 		this.orderDate = orderDate;
-	}
-
-	public BigDecimal getTotalOrginalPrice() {
-		return totalOrginalPrice;
-	}
-
-	public void setTotalOrginalPrice(BigDecimal totalOrginalPrice) {
-		this.totalOrginalPrice = totalOrginalPrice;
-	}
-
-	public BigDecimal getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
 	}
 
 	public BigDecimal getTotalPrice() {
@@ -83,6 +65,27 @@ public class Order {
 	}
 
 	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Order(Integer id, Integer userId, LocalDateTime orderDate, BigDecimal totalPrice, Integer totalQuantity,
+			String payment, String status) {
+		this.id = id;
+		this.userId = userId;
+		this.orderDate = orderDate;
+		this.totalPrice = totalPrice;
+		this.totalQuantity = totalQuantity;
+		this.payment = payment;
+		this.status = status;
+	}
+	
+	public Order(Integer userId, LocalDateTime orderDate, BigDecimal totalPrice, Integer totalQuantity,
+			String payment, String status) {
+		this.userId = userId;
+		this.orderDate = orderDate;
+		this.totalPrice = totalPrice;
+		this.totalQuantity = totalQuantity;
+		this.payment = payment;
 		this.status = status;
 	}
 

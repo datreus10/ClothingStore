@@ -19,8 +19,8 @@ public class UserDAOImpl implements UserDAO {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public UserDAOImpl(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
+	public UserDAOImpl(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User validateUser(User loginUser) {
+	public Optional<User> validateUser(User loginUser) {
 		String sql = new StringBuilder()
 				.append("select * from user where username='")
 				.append(loginUser.getUsername())
@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO {
 				.append(loginUser.getPassword()+"'").toString();
 		List<User> users = jdbcTemplate.query(sql, new UserRowMapper());
 
-	    return users.size() > 0 ? users.get(0) : null;
+	    return Optional.ofNullable(users.size() > 0 ? users.get(0) : null) ;
 		
 	}
 
