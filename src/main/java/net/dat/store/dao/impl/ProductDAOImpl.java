@@ -13,9 +13,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -28,87 +30,44 @@ import net.dat.store.model.ProductOption;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
-
 	private final JdbcTemplate jdbcTemplate;
-	
-	private final ProductOptionDAO productOptionDAO;
 
 	
 
-	public ProductDAOImpl(JdbcTemplate jdbcTemplate, ProductOptionDAO productOptionDAO) {
+	public ProductDAOImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-		this.productOptionDAO = productOptionDAO;
 	}
 
 	@Override
 	public int save(Product newProduct) {
 		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
-		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
-		int result = jdbcTemplate.update(new PreparedStatementCreator() {
-
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				ps.setString(1, newProduct.getName());
-				ps.setBigDecimal(2, newProduct.getPrice());
-				ps.setString(3, newProduct.getDescription());
-				ps.setString(4, newProduct.getImages());
-				return ps;
-			}
-		}, keyHolder);
-		if (result > 0) {
-			Integer productId = keyHolder.getKey().intValue();
-			newProduct.setId(productId);
-			productOptionDAO.addList(newProduct.getOptions());
-		}
-		return result;
+		return jdbcTemplate.update(sql, new ProductRowMapper());
 	}
 
 	@Override
 	public List<Product> getAll() {
-		String sql = "SELECT * FROM product a,product_option b WHERE a.id=b.product_id LIMIT 100;";
-		return jdbcTemplate.query(sql, new ResultSetExtractor<List<Product>>() {
-
-			@Override
-			public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Map<Integer, Product> map = new HashMap<Integer, Product>();
-				while(rs.next()) {
-					Integer productId = rs.getInt("product_id");
-					if(!map.containsKey(productId)) {
-						map.put(productId, new Product());
-						Product p = map.get(productId);
-						p.setId(productId);
-						p.setName(rs.getString("name"));
-						p.setDescription(rs.getString("description"));
-						p.setPrice(rs.getBigDecimal("price"));
-						p.setImages(rs.getString("images"));
-					}
-					map.get(productId).addOption(new ProductOption(rs.getString("size"), rs.getString("color"), rs.getInt("quantity")));	
-				}
-				return new ArrayList<Product>(map.values());
-			}
-			
-		});
+		String sql = "SELECT * FROM product LIMIT 100";
+		return jdbcTemplate.query(sql, new ProductRowMapper());
 	}
 
 	@Override
 	public Optional<Product> getById(Integer id) {
-		String sql = "SELECT * FROM product a,product_option b WHERE a.id=b.product_id AND a.id=" + id;
+		String sql = "SELECT * FROM product WHERE id=" + id;
+		return jdbcTemplate.query(sql, new ProductRowMapper()).stream().findFirst();
+	}
 
-		return Optional.ofNullable(jdbcTemplate.query(sql, new ResultSetExtractor<Product>() {
-			@Override
-			public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Product p = null;
-				while (rs.next()) {
-					if (p == null)
-						p = new Product(rs.getInt("id"), rs.getString("name"), rs.getBigDecimal("price"),
-								rs.getString("description"), rs.getString("images"));
+	class ProductRowMapper implements RowMapper<Product> {
 
-					p.addOption(new ProductOption(rs.getString("size"), rs.getString("color"), rs.getInt("quantity")));
-				}
-				return p;
-			}
-		}));
+		@Override
+		public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return new Product(rs.getInt("id"), 
+					rs.getNString("name"), 
+					rs.getBigDecimal("price"),
+					rs.getNString("description"), 
+					rs.getString("images"));
+
+		}
+
 	}
 
 	@Override
@@ -123,5 +82,49 @@ public class ProductDAOImpl implements ProductDAO {
 		return 0;
 	}
 
-	
+	@Override
+	public int save(Product newProduct, List<Integer> returnId) {
+		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
+		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
+		int result = jdbcTemplate.update(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				ps.setNString(1, newProduct.getName());
+				ps.setBigDecimal(2, newProduct.getPrice());
+				ps.setNString(3, newProduct.getDescription());
+				ps.setString(4, newProduct.getImages());
+				return ps;
+			}
+		}, keyHolder);
+		if (result > 0) {
+			Integer productId = keyHolder.getKey().intValue();
+			returnId.add(productId);
+		}
+		return result;
+	}
+
+//	@Override
+//	public int[] save(List<Product> products, List<Integer> returnId) {
+//		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
+//		return jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+//			
+//			@Override
+//			public void setValues(PreparedStatement ps, int i) throws SQLException {
+//				Product product = products.get(i);
+//				ps.setString(1, product.getName());
+//				ps.setBigDecimal(2,	product.getPrice());
+//				ps.setString(3, product.getDescription());
+//				ps.setString(4, product.getImages());
+//				
+//			}
+//			
+//			@Override
+//			public int getBatchSize() {
+//				return products.size();
+//			}
+//		});
+		
+//	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import net.dat.store.model.ProductOption;
 
 public interface ProductOptionDAO {
-	int add(ProductOption pOption);
+	int save(ProductOption pOption);
 
-	int[] addList(List<ProductOption> options);
+	int[] saveList(List<ProductOption> options);
 }

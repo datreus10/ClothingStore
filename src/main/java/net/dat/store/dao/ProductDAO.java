@@ -10,7 +10,11 @@ import net.dat.store.model.Product;
 public interface ProductDAO {
 
 	int save(Product newProduct);
+	
+	int save(Product newProduct,List<Integer> returnId);
 
+	//int[] save( List<Product> products,List<Integer> returnId);
+	
 	List<Product> getAll();
 
 	Optional<Product> getById(Integer id);

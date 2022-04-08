@@ -10,15 +10,8 @@ public class Product {
 	private BigDecimal price;
 	private String description;
 	private String images;
-	private List<ProductOption> options;
 
-	public List<ProductOption> getOptions() {
-		return options;
-	}
-
-	public Product() {
-		this.options = new ArrayList<ProductOption>();
-	}
+	
 
 	public Product(Integer id, String name, BigDecimal price, String description, String images) {
 		this(name, price, description, images);
@@ -30,16 +23,10 @@ public class Product {
 		this.price = price;
 		this.description = description;
 		this.images = images;
-		this.options = new ArrayList<ProductOption>();
+		
 	}
 
-	public boolean addOption(ProductOption opt) {
-		if (!options.contains(opt)) {
-			opt.setProduct(this);
-			options.add(opt);
-		}
-		return false;
-	}
+	
 
 	public Integer getId() {
 		return id;
