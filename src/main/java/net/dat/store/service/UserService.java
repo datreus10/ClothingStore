@@ -24,8 +24,8 @@ public class UserService {
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 	}
 
-	public User getUser(Integer id) {
-		return userDAO.getById(id)
+	public User getUser(String id) {
+		return userDAO.getById(Integer.valueOf(id))
 				.orElseThrow(() -> new NotFoundException(String.format("User with id % not found", id)));
 	}
 

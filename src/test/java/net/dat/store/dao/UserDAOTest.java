@@ -20,7 +20,7 @@ class UserDAOTest {
 	@BeforeEach
 	void setup() {
 		userDAO = new UserDAOImpl(ConfigDB.getJdbcTemplate());
-		normalUser = new User("bgate", "1234", "Bill Gates", "0123456789", "Microsoft - USA", "user");
+		normalUser = new User("bgate3", "1234", "Bill Gates", "0123456789", "Microsoft - USA", "user");
 		adminUser = new User("sjob", "1234", "Steve Jobs", "0123456789", "Apple - USA", "admin");
 	}
 

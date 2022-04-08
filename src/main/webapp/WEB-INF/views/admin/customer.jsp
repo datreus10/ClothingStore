@@ -21,19 +21,46 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Manager Customer</h4>
+                                <h4 class="card-title">Manager User</h4>
+
+
+                                <div>
+                                    <!-- button trigger for  Vertically Centered modal -->
+                                    <button type="button" class="notifiModal" data-bs-toggle="modal"
+                                        data-bs-target="#notifiModal" style="visibility: hidden;display:none;">
+                                    </button>
+                                    <!-- Vertically Centered modal Modal -->
+                                    <div class="modal fade" id="notifiModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                                            role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Notification
+                                                    </h5>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                        Successfully delete user
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary ml-1"
+                                                        data-bs-dismiss="modal">
+                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">OK</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
                             </div>
-                            <!-- <div class="card-content">
-                                <div class="card-body">
-                                    <p class="card-text">Add <code>.table-bordered</code> for borders on all sides of
-                                        the table
-                                        and
-                                        cells. For
-                                        Inverse Dark Table, add <code>.table-dark</code> along with
-                                        <code>.table-bordered</code>.
-                                    </p>
-                                </div> -->
-                            <!-- table bordered -->
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered mb-0">
                                     <thead>
@@ -57,22 +84,11 @@
                                                 <td>${user.phone}</td>
                                                 <td>${user.address}</td>
                                                 <td>${user.role}</td>
-                                                <td width="12%">
+                                                <td width="10%">
                                                     <div class="d-flex justify-content-around">
 
-                                                        <button type="button" class="btn btn-outline-primary block">
-                                                            <a href="#"><svg class="bi" width="1em" height="1em"
-                                                                    fill="currentColor">
-                                                                    <use
-                                                                        xlink:href="<c:url value="/resources/assets/vendors/bootstrap-icons/bootstrap-icons.svg#plus-circle"/>" />
-                                                                </svg></a>
-
-                                                        </button>
-
-
-
                                                         <button type="button" class="btn btn-outline-primary block"> <a
-                                                                href="#">
+                                                                href="<c:url value="/admin/customer/edit?userId=${user.id}"/>">
                                                                 <svg class="bi" width="1em" height="1em"
                                                                     fill="currentColor">
                                                                     <use
@@ -109,7 +125,8 @@
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <p>
-                                                                            Are you sure to delete this user ?
+                                                                            Are you sure to delete user:
+                                                                            ${user.username}
                                                                         </p>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -136,16 +153,6 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-                                        <!-- <tr>
-                                                <td class="text-bold-500">Michael Right</td>
-                                                <td>$15/hr</td>
-                                                <td class="text-bold-500">UI/UX</td>
-                                                <td>Remote</td>
-                                                <td>Austin,Taxes</td>
-                                                <td><a href="#"><i
-                                                            class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                            data-feather="mail"></i></a></td>
-                                            </tr> -->
 
                                     </tbody>
                                 </table>
@@ -176,8 +183,11 @@
                     })
                     .done(function (msg) {
                         console.log(JSON.parse(msg));
-                        alert(msg);
-                        location.reload();
+                        $("button.notifiModal").click();
+                        $("#notifiModal .modal-footer button").on("click", function () {
+                            location.reload();
+                        })
+
                     });
             });
         });
