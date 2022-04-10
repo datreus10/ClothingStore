@@ -25,20 +25,22 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int save(User user) {
-		String sql = "INSERT INTO user(username,password,fullname,phone,address,role) VALUES (?,?,?,?,?,?)";
-		return jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getFullname(), user.getPhone(),
-				user.getAddress(), user.getRole());
+		String sql = "INSERT INTO user(username,password,email,fullname,phone,address,role) VALUES (?,?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullname(),
+				user.getPhone(), user.getAddress(), user.getRole());
 	}
 
 	@Override
 	public int update(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql = "UPDATE user SET username=?,password=?,email=?,fullname=?,phone=?,address=?,role=? where id=?";
+		return jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullname(),
+				user.getPhone(), user.getAddress(),user.getRole(), user.getId());
 	}
 
 	@Override
 	public int delete(Integer id) {
-		String sql = "DELETE FROM user WHERE id="+id;
+		String sql = "DELETE FROM user WHERE id=" + id;
 		return jdbcTemplate.update(sql);
 	}
 
@@ -59,7 +61,7 @@ public class UserDAOImpl implements UserDAO {
 
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"),
+			return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"),
 					rs.getString("fullname"), rs.getString("phone"), rs.getString("address"), rs.getString("role"));
 		}
 
@@ -67,15 +69,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public Optional<User> validateUser(User loginUser) {
-		String sql = new StringBuilder()
-				.append("select * from user where username='")
-				.append(loginUser.getUsername())
-				.append("' and password='")
-				.append(loginUser.getPassword()+"'").toString();
+		String sql = new StringBuilder().append("select * from user where username='").append(loginUser.getUsername())
+				.append("' and password='").append(loginUser.getPassword() + "'").toString();
 		List<User> users = jdbcTemplate.query(sql, new UserRowMapper());
 
-	    return Optional.ofNullable(users.size() > 0 ? users.get(0) : null) ;
-		
+		return Optional.ofNullable(users.size() > 0 ? users.get(0) : null);
+
 	}
 
 }

@@ -20,8 +20,8 @@ class UserDAOTest {
 	@BeforeEach
 	void setup() {
 		userDAO = new UserDAOImpl(ConfigDB.getJdbcTemplate());
-		normalUser = new User("bgate3", "1234", "Bill Gates", "0123456789", "Microsoft - USA", "user");
-		adminUser = new User("sjob", "1234", "Steve Jobs", "0123456789", "Apple - USA", "admin");
+		normalUser = new User("bgate3", "1234","bgate@gmail.com", "Bill Gates", "0123456789", "Microsoft - USA", "user");
+		adminUser = new User("sjob", "1234","sjob@gmail.com", "Steve Jobs", "0123456789", "Apple - USA", "admin");
 	}
 
 	@Test
@@ -37,7 +37,7 @@ class UserDAOTest {
 
 	@Test
 	void testDelete() {
-		System.out.println(userDAO.delete(1));
+		System.out.println(userDAO.delete(2));
 	}
 
 	@Test

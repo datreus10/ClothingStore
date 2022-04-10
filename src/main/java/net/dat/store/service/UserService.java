@@ -19,11 +19,19 @@ public class UserService {
 	}
 
 	public void addNewUser(User user) {
+		// check exists user
+		
 		int result = userDAO.save(user);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 	}
 
+	public void updateUser(User u) {
+		int result = userDAO.update(u);
+		if (result != 1)
+			throw new IllegalStateException("Oop!! Some thing went wrong");
+	}
+	
 	public User getUser(String id) {
 		return userDAO.getById(Integer.valueOf(id))
 				.orElseThrow(() -> new NotFoundException(String.format("User with id % not found", id)));

@@ -6,13 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<c:import url="layout/header.jsp">
+<c:import url="../layout/header.jsp">
 
 </c:import>
 
 <body>
     <div id="app">
-        <c:import url="layout/sidebar.jsp">
+        <c:import url="sidebar.jsp">
             <c:param name="activeBar" value="${activeBar }"></c:param>
         </c:import>
         <div id="main">
@@ -66,6 +66,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
+                                            <th>User Id</th>
                                             <th>Username</th>
                                             <th>Fullname</th>
                                             <th>Phone</th>
@@ -79,6 +80,7 @@
                                         <c:forEach var="user" items="${users}" varStatus="loop">
                                             <tr>
                                                 <td>${loop.index+1}</td>
+                                                <td>${user.id}</td>
                                                 <td>${user.username}</td>
                                                 <td>${user.fullname}</td>
                                                 <td>${user.phone}</td>
@@ -86,15 +88,15 @@
                                                 <td>${user.role}</td>
                                                 <td width="10%">
                                                     <div class="d-flex justify-content-around">
-
-                                                        <button type="button" class="btn btn-outline-primary block"> <a
-                                                                href="<c:url value="/admin/customer/edit?userId=${user.id}"/>">
+<a
+                                                                href="<c:url value="/admin/user/edit?userId=${user.id}"/>">
+                                                        <button type="button" class="btn btn-outline-primary block"> 
                                                                 <svg class="bi" width="1em" height="1em"
                                                                     fill="currentColor">
                                                                     <use
                                                                         xlink:href="<c:url value="/resources/assets/vendors/bootstrap-icons/bootstrap-icons.svg#pencil-square"/>" />
-                                                                </svg></a>
-                                                        </button>
+                                                                </svg>
+                                                        </button></a>
 
 
                                                         <button type="button" class="btn btn-outline-primary block"
@@ -179,7 +181,7 @@
                 var userId = $(this).attr("value");
                 $.ajax({
                         method: "DELETE",
-                        url: "/ClothingStore/admin/customer/delete?userId=" + userId,
+                        url: "/ClothingStore/admin/user/delete?userId=" + userId,
                     })
                     .done(function (msg) {
                         console.log(JSON.parse(msg));

@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
+encoding//src/main/java/net/dat/store/model/Product.java=UTF-8
+encoding//src/test/java/net/dat/store/dao/OrderDAOTest.java=UTF-8
 encoding//src/test/java/net/dat/store/dao/ProductDAOTest.java=UTF-8

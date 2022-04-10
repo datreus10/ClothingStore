@@ -6,13 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<c:import url="layout/header.jsp">
+<c:import url="../layout/header.jsp">
         	
 </c:import>
 
 <body>
     <div id="app">
-        <c:import url="layout/sidebar.jsp">
+        <c:import url="sidebar.jsp">
         	<c:param name="activeBar" value="${activeBar }"></c:param>
         </c:import>
         <div id="main">

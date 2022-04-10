@@ -38,9 +38,9 @@
 						<input type="submit" class="fadeIn fourth" value="Log In" />
 					</form>
 
-					<!-- Remind Passowrd -->
+					
 					<div id="formFooter">
-						<a class="underlineHover" href="#">Forgot Password?</a>
+						<a class="underlineHover" href="<c:url value="/register"/>">Register</a>
 					</div>
 
 				</div>

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +27,7 @@ public class LoginController {
 		else if (user.getRole().equals("admin"))
 			return new ModelAndView("redirect:/admin");
 		else
-			return new ModelAndView("index");
+			return new ModelAndView("client/index");
 
 	}
 
@@ -43,5 +44,19 @@ public class LoginController {
 		AuthUserDTO authUser = userService.validateUser(loginUser);
 		req.getSession().setAttribute("user", authUser);
 		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView getRegister(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mv = new ModelAndView("register");
+		mv.addObject("user", new User());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView saveUser(@ModelAttribute User user, HttpServletRequest req, HttpServletResponse res) {
+		user.setRole("user");
+		userService.addNewUser(user);
+		return new ModelAndView("redirect:/login");
 	}
 }

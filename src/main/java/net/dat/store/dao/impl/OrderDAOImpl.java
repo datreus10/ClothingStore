@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -32,15 +33,25 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public int save(Order order) {
-		String sql = "INSERT INTO order(user_id,order_date,total_price,total_quantity,payment,status) values(?,?,?,?,?,?)";
+		String sql = "INSERT INTO clothing_store.order(user_id, order_date, total_price, total_quantity, payment, status) VALUES(?,?,?,?,?,?)";
 
-		return jdbcTemplate.update(sql, 
-				order.getUserId(), 
-				Timestamp.valueOf(order.getOrderDate()),
-				order.getTotalPrice(), 
-				order.getTotalQuantity(), 
-				order.getPayment(), 
-				order.getStatus());
+		return jdbcTemplate.update(sql, new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, order.getUserId());
+				ps.setTimestamp(2, Timestamp.valueOf(order.getOrderDate()));
+				ps.setBigDecimal(3, order.getTotalPrice());
+				ps.setInt(4, order.getTotalQuantity());
+				ps.setNString(5, order.getPayment());
+				ps.setNString(6, order.getStatus());
+				
+				System.out.println(ps);
+			}
+			
+		});
+		
+		
 	}
 
 	@Override

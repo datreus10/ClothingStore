@@ -29,14 +29,14 @@
                 </li>
 
                 <li class="sidebar-item ${activeBar==1 ? 'active' : '' }">
-                    <a href="<c:out value = "${baseURL}"/>/customer" class='sidebar-link'>
+                    <a href="<c:out value = "${baseURL}"/>/user" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Customer</span>
+                        <span>User</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item ${activeBar==2 ? 'active' : '' }">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="<c:out value = "${baseURL}"/>/product" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Product</span>
                     </a>

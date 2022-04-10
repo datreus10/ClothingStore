@@ -4,6 +4,7 @@ public class User {
 	private Integer id;
 	private String username;
 	private String password;
+	private String email;
 	private String fullname;
 	private String phone;
 	private String address;
@@ -66,9 +67,10 @@ public class User {
 	}
 
 
-	public User(String username, String password, String fullname, String phone, String address, String role) {
+	public User(String username, String password,String email, String fullname, String phone, String address, String role) {
 		this.username = username;
 		this.password = password;
+		this.email=email;
 		this.fullname = fullname;
 		this.phone = phone;
 		this.address = address;
@@ -78,16 +80,25 @@ public class User {
 	public User() {
 	}
 
-	public User(Integer id, String username, String password, String fullname, String phone, String address,
+	public User(Integer id, String username, String password,String email, String fullname, String phone, String address,
 			String role) {
-		this(username,password,fullname,phone,address,role);
+		this(username,password,email,fullname,phone,address,role);
 		this.id = id;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname
-				+ ", phone=" + phone + ", address=" + address + ", role=" + role + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", fullname=" + fullname + ", phone=" + phone + ", address=" + address + ", role=" + role + "]";
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

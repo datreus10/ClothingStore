@@ -2,6 +2,9 @@ package net.dat.store.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,6 +13,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import net.dat.store.dao.impl.OrderDAOImpl;
 import net.dat.store.dao.impl.ProductDAOImpl;
 import net.dat.store.dao.impl.ProductOptionDAOImpl;
+import net.dat.store.model.Order;
 
 class OrderDAOTest {
 
@@ -22,7 +26,8 @@ class OrderDAOTest {
 
 	@Test
 	void testSave() {
-		fail("Not yet implemented");
+		Order order = new Order(1,LocalDateTime.now(),new BigDecimal("100000"),1,"Thanh toán khi nhận hàng","Đang xử lý");
+		assertTrue(orderDAO.save(order)>0);
 	}
 
 	@Test
