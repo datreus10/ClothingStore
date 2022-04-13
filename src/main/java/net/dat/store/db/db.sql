@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `order_date` timestamp NOT NULL,
+  `order_date` datetime NOT NULL,
   `total_price` decimal(10,0) NOT NULL,
   `total_quantity` int NOT NULL,
   `payment` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,1,'2022-04-09 21:37:50',100000,1,'Thanh toán khi nhận hàng','Đang xử lý'),(2,1,'2022-04-09 21:42:09',100000,1,'Thanh toán khi nhận hàng','Đang xử lý');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,12 +109,13 @@ CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `fullname` varchar(45) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `address` varchar(100) NOT NULL,
   `role` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +124,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'bgate','1234','Bill Gates','0123456789','Microsoft - USA','user'),(2,'sjob','1234','Steve Jobs','0123456789','Apple - USA','admin');
+INSERT INTO `user` VALUES (11,'sjob','1234','sjob@gmail.com','Steve Jobs','0123456789','Apple - USA','admin'),(12,'bgate3','1234','bgate@gmail.com','Bill Gates','0123456789','Microsoft - USA','user'),(13,'dat','1234','dat@gmail.com','dat','1231234','asd21','admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -135,4 +137,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-08  8:21:18
+-- Dump completed on 2022-04-13 14:25:08
