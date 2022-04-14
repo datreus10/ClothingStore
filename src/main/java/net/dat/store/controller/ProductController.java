@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.dat.store.model.ContactForm;
 import net.dat.store.model.Product;
 import net.dat.store.model.ProductOption;
 import net.dat.store.model.User;
@@ -51,8 +52,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/admin/product/new",method = RequestMethod.POST)
-	@ResponseBody
-	public String postAdd(@RequestParam Map<String, Object> body ){	 
+	public String postAdd(@ModelAttribute("product") Product product ){	 
 //		List<Integer> lstId = new ArrayList<Integer>();
 //		productService.addProduct(product,lstId);
 		return String.format("{\"msg\":\"success\",\"product_id\":%d}",1);

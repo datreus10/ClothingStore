@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +8,8 @@
 
 
 <head>
-<c:import url="../layout/header.jsp" />
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-	rel="stylesheet">
+	<c:import url="../layout/header.jsp" />
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,7 +30,7 @@
 							</div>
 							<div class="card-content">
 								<div class="card-body">
-									<form class="form form-vertical">
+									<form:form class="form form-vertical" modelAttribute="product">
 										<div class="form-body">
 											<div class="row">
 												<div class="col-12">
@@ -44,8 +41,8 @@
 												</div>
 												<div class="col-12">
 													<div class="form-group">
-														<label for="product-price">Price</label> <input
-															type="text" class="form-control" placeholder="Price"
+														<label for="product-price">Price</label> <input type="text"
+															class="form-control" placeholder="Price"
 															id="product-price" />
 													</div>
 												</div>
@@ -73,32 +70,23 @@
 																<tbody>
 
 																	<tr>
-																		<td><input type="text" class="form-control" value="S"/></td>
-																		<td><input type="text" class="form-control" /></td>
-																		<td><input type="text" class="form-control" /></td>
-																	</tr>
 
-																	<tr>
-																		<td><input type="text" class="form-control" value="M"/></td>
-																		<td><input type="text" class="form-control" /></td>
-																		<td><input type="text" class="form-control" /></td>
+																		<td><input name="options[0].size"
+																				class="form-control" /></td>
+																		<td><input name="options[0].color"
+																				class="form-control" /></td>
+																		<td><input name="options[0].quantity"
+																				class="form-control" /></td>
 																	</tr>
-																	
-																	<tr>
-																		<td><input type="text" class="form-control" value="L"/></td>
-																		<td><input type="text" class="form-control" /></td>
-																		<td><input type="text" class="form-control" /></td>
-																	</tr>
-																	
-																	<tr>
-																		<td><input type="text" class="form-control" value="XL"/></td>
-																		<td><input type="text" class="form-control" /></td>
-																		<td><input type="text" class="form-control" /></td>
-																	</tr>
-
-
 																</tbody>
+
 															</table>
+															<a href="#" class="btn icon icon-left btn-primary">
+																<svg class="bi" width="1em" height="1em"
+																	fill="currentColor">
+																	<use xlink:href="<c:url value="/resources/assets/vendors/bootstrap-icons/bootstrap-icons.svg#plus"/>">
+																		</use> </svg> <span>Add detail</span>
+															</a>
 														</div>
 													</div>
 
@@ -108,14 +96,15 @@
 
 
 													<div class="col-12 d-flex justify-content-end">
-														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+														<button type="submit"
+															class="btn btn-primary me-1 mb-1">Submit</button>
 														<button type="reset"
 															class="btn btn-light-secondary me-1 mb-1">Reset</button>
 													</div>
 												</div>
 											</div>
 										</div>
-									</form>
+									</form:form>
 								</div>
 							</div>
 
@@ -131,44 +120,60 @@
 
 	<!-- Include the Quill library -->
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
 	<!-- Initialize Quill editor -->
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			var quill = new Quill('#product-desc', {
-				theme : 'snow'
+				theme: 'snow'
 			});
 
-			$("form").submit(function(event) {
-				var formData = {
-					name : $("#product-name").val(),
-					price : $("#product-price").val(),
-					description : quill.root.innerHTML,
-					images : "img1.jpg,img2.jpg",
-					options: new Array({
-						color:"white",
-						size:"XL",
-						quantity:1
-					},{
-						color:"red",
-						size:"L",
-						quantity:2
-					})
-				};
-				console.log(formData);
-				$.ajax({
-					type : "POST",
-					url : "/ClothingStore/admin/product/new",
-					data : formData,
-					dataType : "json",
-					encode : true,
 
-				}).done(function(data) {
-					console.log(data);
-				});
+			var rowCount = 1;
+			$("#detail a.btn").click(function () {
+
+				const newRow = `<tr>
+					<td><input
+							name="options[\${rowCount}].size"
+							class="form-control" /></td>
+					<td><input
+							name="options[\${rowCount}].color"		
+							class="form-control" /></td>
+					<td><input
+							name="options[\${rowCount}].quantity"
+							class="form-control" /></td>
+					</tr>`;
+
+				$("#detail tbody").append(newRow);
+				rowCount += 1;
+			})
+
+
+			$("form").submit(function (event) {
+				// var formData = {
+				// 	name: $("#product-name").val(),
+				// 	price: $("#product-price").val(),
+				// 	description: quill.root.innerHTML,
+				// 	images: "img1.jpg,img2.jpg",
+				// 	"options[0].size": "XL",
+				// 	"options[0].color": "white",
+				// 	"options[0].quantity": 2
+				// };
+				// console.log(formData);
+				// $.ajax({
+				// 	type: "POST",
+				// 	url: "/ClothingStore/admin/product/new",
+				// 	data: formData,
+				// 	dataType: "json",
+				// 	encode: true,
+
+				// }).done(function (data) {
+				// 	console.log(data);
+				// });
+
+					console.log(new FormData(document.querySelector('form')));
 
 				event.preventDefault();
 			});
