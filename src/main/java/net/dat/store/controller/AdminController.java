@@ -50,7 +50,6 @@ public class AdminController {
 	@RequestMapping(value = "/admin/user/edit")
 	public ModelAndView editUser(HttpServletRequest req, HttpServletResponse res){
 		User user = userService.getUser(req.getParameter("userId"));
-		
 		ModelAndView mv= new ModelAndView("admin/editUser");
 		mv.addObject("user", user);
 		return mv;

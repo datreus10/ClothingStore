@@ -17,10 +17,11 @@ public class ProductService {
 		this.productDAO = productDAO;
 	}
 
-	public void addProduct(Product p) {
-		int result = productDAO.save(p);
+	public int addProduct(Product p,List<Integer>lstId) {
+		int result = productDAO.save(p,lstId);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
+		return result;
 	}
 	
 	public List<Product> getProducts() {

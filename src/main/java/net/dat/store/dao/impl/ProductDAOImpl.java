@@ -41,7 +41,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public int save(Product newProduct) {
 		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
-		return jdbcTemplate.update(sql, new ProductRowMapper());
+		return jdbcTemplate.update(sql, newProduct.getName(),newProduct.getPrice(),newProduct.getDescription(),newProduct.getImages());
 	}
 
 	@Override

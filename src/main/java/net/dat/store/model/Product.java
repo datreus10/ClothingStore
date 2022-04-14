@@ -13,12 +13,31 @@ public class Product {
 	private BigDecimal price;
 	private String description;
 	private String images;
-
+	private List<ProductOption> options;
 	
+	
+	public List<ProductOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<ProductOption> options) {
+		this.options = options;
+	}
+
+	public Product() {
+		
+	}
 
 	public Product(Integer id, String name, BigDecimal price, String description, String images) {
 		this(name, price, description, images);
 		this.id = id;
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description
+				+ ", images=" + images + "]";
 	}
 
 	public Product(String name, BigDecimal price, String description, String images) {

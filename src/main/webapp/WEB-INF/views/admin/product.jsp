@@ -20,44 +20,14 @@
 				<div class="row" id="table-bordered">
 					<div class="col-12">
 						<div class="card">
-							<div class="card-header">
+							<div class="card-header d-flex justify-content-between">
 								<h4 class="card-title">Manager Product</h4>
-
-
-								<div>
-									<!-- button trigger for  Vertically Centered modal -->
-									<button type="button" class="notifiModal"
-										data-bs-toggle="modal" data-bs-target="#notifiModal"
-										style="visibility: hidden; display: none;"></button>
-									<!-- Vertically Centered modal Modal -->
-									<div class="modal fade" id="notifiModal" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalCenterTitle"
-										aria-hidden="true">
-										<div
-											class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-											role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalCenterTitle">Notification
-													</h5>
-
-												</div>
-												<div class="modal-body">
-													<p>Successfully delete user</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-primary ml-1"
-														data-bs-dismiss="modal">
-														<i class="bx bx-check d-block d-sm-none"></i> <span
-															class="d-none d-sm-block">OK</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-								</div>
+								<a href="<c:url value="/admin/product/new"/>" class="btn icon icon-left btn-primary d-flex align-items-center justify-content-around"> 
+									<svg class="bi" width="1em" height="1em" fill="currentColor">
+                                    <use xlink:href="<c:url value="/resources/assets/vendors/bootstrap-icons/bootstrap-icons.svg#plus"/>"></use>
+                                </svg> 
+                                <span>Create new</span>
+								</a>
 
 							</div>
 
@@ -102,7 +72,7 @@
 
 
 	</div>
-	</div>
+	
 
 </body>
 
