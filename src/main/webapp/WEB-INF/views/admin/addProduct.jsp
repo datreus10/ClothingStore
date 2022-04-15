@@ -36,14 +36,14 @@
 												<div class="col-12">
 													<div class="form-group">
 														<label for="product-name">Name</label> <input type="text"
-															class="form-control" placeholder="Name" id="product-name" />
+															class="form-control" name="name" placeholder="Name" id="product-name" />
 													</div>
 												</div>
 												<div class="col-12">
 													<div class="form-group">
-														<label for="product-price">Price</label> <input type="text"
+														<label for="product-price">Price</label> <input type="number"
 															class="form-control" placeholder="Price"
-															id="product-price" />
+															id="product-price" name="price" />
 													</div>
 												</div>
 
@@ -72,11 +72,11 @@
 																	<tr>
 
 																		<td><input name="options[0].size"
-																				class="form-control" /></td>
+																				class="form-control" type="text"/></td>
 																		<td><input name="options[0].color"
-																				class="form-control" /></td>
+																				class="form-control" type="text"></td>
 																		<td><input name="options[0].quantity"
-																				class="form-control" /></td>
+																				class="form-control" type="number"/></td>
 																	</tr>
 																</tbody>
 
@@ -150,30 +150,24 @@
 				rowCount += 1;
 			})
 
+			
 
 			$("form").submit(function (event) {
-				// var formData = {
-				// 	name: $("#product-name").val(),
-				// 	price: $("#product-price").val(),
-				// 	description: quill.root.innerHTML,
-				// 	images: "img1.jpg,img2.jpg",
-				// 	"options[0].size": "XL",
-				// 	"options[0].color": "white",
-				// 	"options[0].quantity": 2
-				// };
-				// console.log(formData);
-				// $.ajax({
-				// 	type: "POST",
-				// 	url: "/ClothingStore/admin/product/new",
-				// 	data: formData,
-				// 	dataType: "json",
-				// 	encode: true,
+				const data = Object.fromEntries(new FormData(event.target).entries());
+				data.description = quill.root.innerHTML;
+				data.images = "temp.png";
 
-				// }).done(function (data) {
-				// 	console.log(data);
-				// });
+  				console.log(data)
 
-					console.log(new FormData(document.querySelector('form')));
+				$.ajax({
+					type: "POST",
+					url: "/ClothingStore/admin/product/new",
+					data: data,
+					dataType: "json",
+					encode: true,
+				}).done(function (data) {
+					console.log(data);
+				});
 
 				event.preventDefault();
 			});

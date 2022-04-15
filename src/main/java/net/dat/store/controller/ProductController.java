@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.dat.store.model.ContactForm;
+
 import net.dat.store.model.Product;
 import net.dat.store.model.ProductOption;
 import net.dat.store.model.User;
@@ -25,36 +25,30 @@ import net.dat.store.service.ProductService;
 
 @Controller
 public class ProductController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@RequestMapping(value = "/admin/product")
-	public ModelAndView getProduct(){
-		
+	public ModelAndView getProduct() {
+
 		ModelAndView mv = new ModelAndView("admin/product");
 		mv.addObject("products", productService.getProducts());
 		mv.addObject("activeBar", 2);
 		return mv;
 	}
-	
-	@RequestMapping(value = "/admin/product/new",method = RequestMethod.GET)
-	public ModelAndView getAdd(){
-		
+
+	@RequestMapping(value = "/admin/product/new", method = RequestMethod.GET)
+	public ModelAndView getAdd() {
 		ModelAndView mv = new ModelAndView("admin/addProduct");
-		Product p = new Product();
-		List<ProductOption> options = new ArrayList<ProductOption>();
-		options.add(new ProductOption(23, "XL", "white", 123));
-		p.setOptions(options);
-		mv.addObject("product",p);
 		mv.addObject("activeBar", 2);
 		return mv;
 	}
-	
-	@RequestMapping(value = "/admin/product/new",method = RequestMethod.POST)
-	public String postAdd(@ModelAttribute("product") Product product ){	 
-//		List<Integer> lstId = new ArrayList<Integer>();
-//		productService.addProduct(product,lstId);
-		return String.format("{\"msg\":\"success\",\"product_id\":%d}",1);
+
+	@RequestMapping(value = "/admin/product/new", method = RequestMethod.POST)
+	@ResponseBody
+	public String postAdd(@ModelAttribute("product") Product product) {
+		int result = productService.addProductAndOpt(product);
+		return String.format("{\"msg\":\"success\",\"result\":%d}", result);
 	}
 }
