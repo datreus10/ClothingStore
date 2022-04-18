@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import net.dat.store.dao.ProductDAO;
 import net.dat.store.dao.ProductOptionDAO;
+import net.dat.store.exception.NotFoundException;
 import net.dat.store.model.Product;
 import net.dat.store.model.ProductOption;
 import net.dat.store.model.User;
@@ -55,5 +56,12 @@ public class ProductService {
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 		return result;
+	}
+	
+	public Product getById(String id) {
+		Product p= productDAO.getById(Integer.valueOf(id))
+				.orElseThrow(() -> new NotFoundException(String.format("Product with id % not found", id)));
+		p.setOptions(productOptionDAO.getOptions(p.getId()));
+		return p;
 	}
 }

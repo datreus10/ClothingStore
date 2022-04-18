@@ -1,7 +1,9 @@
 package net.dat.store.model;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Order {
 	private Integer id;
@@ -89,4 +91,13 @@ public class Order {
 		this.status = status;
 	}
 
+	public String getDateFormatted() {
+	     return orderDate.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
+
+	}
+	
+	public String priceFormatted() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(totalPrice)+" VNĐ";
+	}
 }

@@ -70,9 +70,9 @@ public class OrderDAOImpl implements OrderDAO {
 
 		@Override
 		public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Order(rs.getInt("user_id"), rs.getTimestamp("order_date").toLocalDateTime(),
-					rs.getBigDecimal("total_price"), rs.getInt("total_quantity"), rs.getString("payment"),
-					rs.getString("status"));
+			return new Order(rs.getInt("id"),rs.getInt("user_id"), rs.getTimestamp("order_date").toLocalDateTime(),
+					rs.getBigDecimal("total_price"), rs.getInt("total_quantity"), rs.getNString("payment"),
+					rs.getNString("status"));
 		}
 
 	}
@@ -90,8 +90,8 @@ public class OrderDAOImpl implements OrderDAO {
 				ps.setTimestamp(2, Timestamp.valueOf(order.getOrderDate()));
 				ps.setBigDecimal(3, order.getTotalPrice());
 				ps.setInt(4, order.getTotalQuantity());
-				ps.setString(5, order.getPayment());
-				ps.setString(5, order.getStatus());
+				ps.setNString(5, order.getPayment());
+				ps.setNString(5, order.getStatus());
 				return ps;
 			}
 		}, keyHolder);
@@ -100,5 +100,11 @@ public class OrderDAOImpl implements OrderDAO {
 			returnId.add(orderId);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Order> getAll() {
+		String sql = "SELECT * FROM clothing_store.order LIMIT 100";
+		return jdbcTemplate.query(sql, new OrderRowMapper());
 	}
 }

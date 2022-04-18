@@ -9,7 +9,7 @@ public interface OrderDAO {
 	int save(Order order);
 
 	int save(Order order, List<Integer> returnId);
-
+	List<Order> getAll();
 	List<Order> getByUserId(Integer userId);
 
 	Optional<Order> getById(Integer id);

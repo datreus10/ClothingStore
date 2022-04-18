@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="sidebar-item ${activeBar==3 ? 'active' : '' }">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="<c:out value = "${baseURL}"/>/order" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Order</span>
                     </a>

@@ -24,7 +24,7 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header d-flex justify-content-between">
-								<h4 class="card-title">Add new product</h4>
+								<h4 class="card-title">Edit product</h4>
 
 
 							</div>
@@ -36,14 +36,14 @@
 												<div class="col-12">
 													<div class="form-group">
 														<label for="product-name">Name</label> <input type="text"
-															class="form-control" name="name" placeholder="Name" id="product-name" />
+															class="form-control" name="name" placeholder="Name" id="product-name" value="${product.name}"/>
 													</div>
 												</div>
 												<div class="col-12">
 													<div class="form-group">
 														<label for="product-price">Price</label> <input type="number"
 															class="form-control" placeholder="Price"
-															id="product-price" name="price" />
+															id="product-price" name="price" value="${product.price}"/>
 													</div>
 												</div>
 
@@ -70,13 +70,14 @@
 																<tbody>
 
 																	<tr>
-
-																		<td><input name="options[0].size"
-																				class="form-control" type="text"/></td>
-																		<td><input name="options[0].color"
-																				class="form-control" type="text"></td>
-																		<td><input name="options[0].quantity"
-																				class="form-control" type="number"/></td>
+																		<c:forEach var="opt" items="${product.options}" varStatus="loop">
+																		<td><input name="options[${loop.index}].size"
+																				class="form-control" type="text" value="${opt.size}"/></td>
+																		<td><input name="options[${loop.index}].color"
+																				class="form-control" type="text" value="${opt.color}"></td>
+																		<td><input name="options[${loop.index}].quantity"
+																				class="form-control" type="number" value="${opt.quantity}"/></td>
+																		</c:forEach>
 																	</tr>
 																</tbody>
 
@@ -173,9 +174,9 @@ src="<c:url value="/resources/assets/js/bootstrap.bundle.min.js"/>">
 			var quill = new Quill('#product-desc', {
 				theme: 'snow'
 			});
+			quill.root.innerHTML = `${product.description}`
 
-
-			var rowCount = 1;
+			var rowCount = ${product.options.size()+1};
 			$("#detail a.btn").click(function () {
 
 				const newRow = `<tr>

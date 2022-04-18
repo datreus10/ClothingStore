@@ -31,7 +31,6 @@ public class ProductController {
 
 	@RequestMapping(value = "/admin/product")
 	public ModelAndView getProduct() {
-
 		ModelAndView mv = new ModelAndView("admin/product");
 		mv.addObject("products", productService.getProducts());
 		mv.addObject("activeBar", 2);
@@ -52,10 +51,19 @@ public class ProductController {
 		return String.format("{\"msg\":\"success\",\"result\":%d}", result);
 	}
 	
-//	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.DELETE)
-//	@ResponseBody
-//	public String deleteProduct(HttpServletRequest req, HttpServletResponse res) {
-//		int result = productService.deleteById(req.getParameter("optionId"));
-//		return String.format("{\"success\":%d}", result);
-//	}
+	@RequestMapping(value = "/admin/product/edit")
+	public ModelAndView deleteProduct(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mv = new ModelAndView("admin/editProduct");
+		mv.addObject("product", productService.getById(req.getParameter("productId")));
+		mv.addObject("activeBar", 2);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateProduct(@ModelAttribute("product") Product product) {
+		//int result = productService.addProductAndOpt(product);
+		
+		return String.format("{\"msg\":\"success\",\"result\":%d}", 1);
+	}
 }
