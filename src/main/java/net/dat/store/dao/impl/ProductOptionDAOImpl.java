@@ -69,4 +69,10 @@ public class ProductOptionDAOImpl implements ProductOptionDAO {
 		return jdbcTemplate.update(sql);
 	}
 
+	@Override
+	public int update(ProductOption opt) {
+		String sql = "UPDATE product_option SET size=?,color=?,quantity=? where id=?";
+		return jdbcTemplate.update(sql,opt.getSize(),opt.getColor(), opt.getQuantity(),opt.getId());
+	}
+
 }

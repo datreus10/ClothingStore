@@ -46,7 +46,6 @@ public class OrderDAOImpl implements OrderDAO {
 				ps.setNString(5, order.getPayment());
 				ps.setNString(6, order.getStatus());
 				
-				System.out.println(ps);
 			}
 			
 		});

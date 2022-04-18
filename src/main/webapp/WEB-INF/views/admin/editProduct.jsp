@@ -8,8 +8,9 @@
 
 
 <head>
-	<c:import url="../layout/header.jsp" />
-	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<c:import url="../layout/header.jsp" />
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+	rel="stylesheet">
 </head>
 
 <body>
@@ -32,18 +33,22 @@
 								<div class="card-body">
 									<form:form class="form form-vertical" modelAttribute="product">
 										<div class="form-body">
+											<input type="text" name="id" value="${product.id}"
+												hidden="true" />
+
 											<div class="row">
 												<div class="col-12">
 													<div class="form-group">
 														<label for="product-name">Name</label> <input type="text"
-															class="form-control" name="name" placeholder="Name" id="product-name" value="${product.name}"/>
+															class="form-control" name="name" placeholder="Name"
+															id="product-name" value="${product.name}" />
 													</div>
 												</div>
 												<div class="col-12">
 													<div class="form-group">
-														<label for="product-price">Price</label> <input type="number"
-															class="form-control" placeholder="Price"
-															id="product-price" name="price" value="${product.price}"/>
+														<label for="product-price">Price</label> <input
+															type="number" class="form-control" placeholder="Price"
+															id="product-price" name="price" value="${product.price}" />
 													</div>
 												</div>
 
@@ -69,23 +74,32 @@
 																</thead>
 																<tbody>
 
-																	<tr>
-																		<c:forEach var="opt" items="${product.options}" varStatus="loop">
-																		<td><input name="options[${loop.index}].size"
-																				class="form-control" type="text" value="${opt.size}"/></td>
-																		<td><input name="options[${loop.index}].color"
-																				class="form-control" type="text" value="${opt.color}"></td>
-																		<td><input name="options[${loop.index}].quantity"
-																				class="form-control" type="number" value="${opt.quantity}"/></td>
-																		</c:forEach>
-																	</tr>
+																	<c:forEach var="opt" items="${product.options}"
+																		varStatus="loop">
+																		<input name="options[${loop.index}].id" type="text"
+																				value="${opt.id}" hidden="true" />
+																			<input name="options[${loop.index}].productId"
+																				type="text" value="${opt.productId}" hidden="true" />
+																		<tr>
+																			
+																			<td><input name="options[${loop.index}].size"
+																				class="form-control" type="text" value="${opt.size}" /></td>
+																			<td><input name="options[${loop.index}].color"
+																				class="form-control" type="text"
+																				value="${opt.color}"></td>
+																			<td><input
+																				name="options[${loop.index}].quantity"
+																				class="form-control" type="number"
+																				value="${opt.quantity}" /></td>
+																		</tr>
+																	</c:forEach>
 																</tbody>
 
 															</table>
-															<a href="#" class="btn icon icon-left btn-primary">
-																<svg class="bi" width="1em" height="1em"
-																	fill="currentColor">
-																	<use xlink:href="<c:url value="/resources/assets/vendors/bootstrap-icons/bootstrap-icons.svg#plus"/>">
+															<a href="#" class="btn icon icon-left btn-primary"> <svg
+																	class="bi" width="1em" height="1em" fill="currentColor">
+																	<use
+																		xlink:href="<c:url value="/resources/assets/vendors/bootstrap-icons/bootstrap-icons.svg#plus"/>">
 																		</use> </svg> <span>Add detail</span>
 															</a>
 														</div>
@@ -97,8 +111,7 @@
 
 
 													<div class="col-12 d-flex justify-content-end">
-														<button type="submit"
-															class="btn btn-primary me-1 mb-1">Submit</button>
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 														<button type="reset"
 															class="btn btn-light-secondary me-1 mb-1">Reset</button>
 													</div>
@@ -117,58 +130,59 @@
 
 		</div>
 	</div>
-<!-- Modal -->
+	<!-- Modal -->
 
-<div>
-	<!-- button trigger for  Vertically Centered modal -->
-	<button type="button" class="notifiModal" data-bs-toggle="modal"
-		data-bs-target="#notifiModal"
-		style="visibility: hidden; display: none;"></button>
-	<!-- Vertically Centered modal Modal -->
-	<div class="modal fade" id="notifiModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-			role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalCenterTitle">Notification
-					</h5>
+	<div>
+		<!-- button trigger for  Vertically Centered modal -->
+		<button type="button" class="notifiModal" data-bs-toggle="modal"
+			data-bs-target="#notifiModal"
+			style="visibility: hidden; display: none;"></button>
+		<!-- Vertically Centered modal Modal -->
+		<div class="modal fade" id="notifiModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Notification
+						</h5>
 
-				</div>
-				<div class="modal-body">
-					<p>Successfully add product</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary ml-1"
-						data-bs-dismiss="modal">
-						<i class="bx bx-check d-block d-sm-none"></i> <span
-							class="d-none d-sm-block">OK</span>
-					</button>
+					</div>
+					<div class="modal-body">
+						<p>Successfully add product</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary ml-1"
+							data-bs-dismiss="modal">
+							<i class="bx bx-check d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">OK</span>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
-</div>
-
-<script
-src="<c:url value="/resources/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"/>">
+	<script
+		src="<c:url value="/resources/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"/>">
 
 </script>
-<script
-src="<c:url value="/resources/assets/js/bootstrap.bundle.min.js"/>">
+	<script
+		src="<c:url value="/resources/assets/js/bootstrap.bundle.min.js"/>">
 
 </script>
-<script src="<c:url value="/resources/assets/js/mazer.js"/>">
+	<script src="<c:url value="/resources/assets/js/mazer.js"/>">
 
 </script>
-	
+
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-	
+
 	<script>
 		$(document).ready(function () {
 			var quill = new Quill('#product-desc', {
@@ -176,7 +190,7 @@ src="<c:url value="/resources/assets/js/bootstrap.bundle.min.js"/>">
 			});
 			quill.root.innerHTML = `${product.description}`
 
-			var rowCount = ${product.options.size()+1};
+			var rowCount = ${product.options.size()};
 			$("#detail a.btn").click(function () {
 
 				const newRow = `<tr>
@@ -206,7 +220,7 @@ src="<c:url value="/resources/assets/js/bootstrap.bundle.min.js"/>">
 
 				$.ajax({
 					type: "POST",
-					url: "/ClothingStore/admin/product/new",
+					url: "/ClothingStore/admin/product/edit",
 					data: data,
 					dataType: "json",
 					encode: true,

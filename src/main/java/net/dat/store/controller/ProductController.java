@@ -62,8 +62,7 @@ public class ProductController {
 	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateProduct(@ModelAttribute("product") Product product) {
-		//int result = productService.addProductAndOpt(product);
-		
+		productService.update(product);
 		return String.format("{\"msg\":\"success\",\"result\":%d}", 1);
 	}
 }

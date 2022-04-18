@@ -31,7 +31,6 @@ import net.dat.store.model.ProductOption;
 public class ProductDAOImpl implements ProductDAO {
 
 	private final JdbcTemplate jdbcTemplate;
-
 	
 
 	public ProductDAOImpl(JdbcTemplate jdbcTemplate) {
@@ -65,15 +64,14 @@ public class ProductDAOImpl implements ProductDAO {
 					rs.getBigDecimal("price"),
 					rs.getNString("description"), 
 					rs.getString("images"));
-
 		}
 
 	}
 
 	@Override
 	public int update(Product product) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE product SET name=?,price=?,description=?,images=? where id=?";
+		return jdbcTemplate.update(sql, product.getName(),product.getPrice(),product.getDescription(),product.getImages(),product.getId());
 	}
 
 	@Override

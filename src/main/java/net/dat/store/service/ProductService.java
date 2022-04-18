@@ -64,4 +64,13 @@ public class ProductService {
 		p.setOptions(productOptionDAO.getOptions(p.getId()));
 		return p;
 	}
+	
+	public void update(Product p) {
+		productDAO.update(p);
+		for (ProductOption opt : p.getOptions()) {
+			opt.setProductId(p.getId());
+			if(productOptionDAO.update(opt)==0)
+				productOptionDAO.save(opt);
+		}
+	}
 }

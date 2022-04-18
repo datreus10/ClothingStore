@@ -14,7 +14,7 @@
 <body>
 	<div id="app">
 		<c:import url="sidebar.jsp">
-			<c:param name="activeBar" value="${activeBar }"></c:param>
+			<c:param name="activeBar" value="${activeBar}"></c:param>
 		</c:import>
 
 		<div id="main">
