@@ -8,4 +8,7 @@ public interface ProductOptionDAO {
 	int save(ProductOption pOption);
 
 	int[] saveList(List<ProductOption> options);
+	
+	List<ProductOption> getOptions(Integer productId);
+	int deleteById(Integer id);
 }

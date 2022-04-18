@@ -51,4 +51,11 @@ public class ProductController {
 		int result = productService.addProductAndOpt(product);
 		return String.format("{\"msg\":\"success\",\"result\":%d}", result);
 	}
+	
+//	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.DELETE)
+//	@ResponseBody
+//	public String deleteProduct(HttpServletRequest req, HttpServletResponse res) {
+//		int result = productService.deleteById(req.getParameter("optionId"));
+//		return String.format("{\"success\":%d}", result);
+//	}
 }

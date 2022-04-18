@@ -43,6 +43,17 @@ public class ProductService {
 	}
 	
 	public List<Product> getProducts() {
-		return productDAO.getAll();
+		List<Product> products= productDAO.getAll();
+		for (Product product : products) {
+			product.setOptions(productOptionDAO.getOptions(product.getId()));
+		}
+		return products;
+	}
+	
+	public int deleteById(String id) {
+		int result = productDAO.delete(Integer.valueOf(id));
+		if (result != 1)
+			throw new IllegalStateException("Oop!! Some thing went wrong");
+		return result;
 	}
 }
