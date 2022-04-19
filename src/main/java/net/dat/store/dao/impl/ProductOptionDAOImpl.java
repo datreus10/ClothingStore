@@ -72,8 +72,8 @@ public class ProductOptionDAOImpl implements ProductOptionDAO {
 
 	@Override
 	public int deleteById(String id) {
-		String sql = "DELETE FROM product_option WHERE id=" + id;
-		return jdbcTemplate.update(sql);
+		StringBuilder sql = new StringBuilder("DELETE FROM product_option WHERE id='").append(id).append("'");
+		return jdbcTemplate.update(sql.toString());
 	}
 
 	@Override

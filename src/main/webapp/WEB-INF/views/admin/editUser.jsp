@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 
 <!DOCTYPE html>
@@ -28,70 +28,70 @@
 							</div>
 							<div class="card-content">
 								<div class="card-body">
-									<form:form class="form" method="post" action="${pageContext.request.contextPath}/admin/user/edit" modelAttribute="user">
-										<form:hidden path="id" value="${user.id }"/>
+									<form class="form" method="post" action="${pageContext.request.contextPath}/admin/user/edit">
+										<input name="id" value="${user.id }" hidden/>
 										<div class="row">
 											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="first-name-column">Username</label> 
-													<form:input
+													<input
 														type="text" id="first-name-column" class="form-control"
-														placeholder="Username" path="username"
+														placeholder="Username" name="username"
 														value="${user.username}"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="last-name-column">Passowrd</label> 
-													<form:input
+													<input
 														type="text" id="last-name-column" class="form-control"
-														placeholder="Passowrd" path="password"
+														placeholder="Passowrd" name="password"
 														value="${user.password}"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="last-name-column">Email</label> 
-													<form:input
+													<input
 														type="text" id="email" class="form-control"
-														placeholder="Email" path="email"
+														placeholder="Email" name="email"
 														value="${user.email}"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="city-column">Fullname</label> 
-													<form:input
+													<input
 														type="text" id="city-column" class="form-control"
-														placeholder="Fullname" path="fullname"
+														placeholder="Fullname" name="fullname"
 														value="${user.fullname}"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="country-floating">Phone number</label> 
-													<form:input
+													<input
 														type="text" id="country-floating" class="form-control"
-														path="phone" placeholder="Phone number"
+														name="phone" placeholder="Phone number"
 														value="${user.phone}"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="company-column">Address</label> 
-													<form:input
+													<input
 														type="text" id="company-column" class="form-control"
-														path="address" placeholder="Address"
+														name="address" placeholder="Address"
 														value="${user.address}"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
 												<label for="email-id-column">Role</label>
 												<fieldset class="form-group">
-													<form:select path="role" class="form-select" id="basicSelect">
+													<select name="role" class="form-select" id="basicSelect">
 														<option ${user.role=="user" ? "selected" : ""} value="user">User</option>
 														<option ${user.role=="admin" ? "selected" : ""} value="admin">Admin</option>
-													</form:select>
+													</select>
 												</fieldset>
 
 												<!-- <div class="form-group">
@@ -109,7 +109,7 @@
 												</button>
 											</div>
 										</div>
-									</form:form>
+									</form>
 								</div>
 							</div>
 						</div>

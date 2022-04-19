@@ -88,8 +88,8 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public int delete(String id) {
-		String sql = "DELETE FROM product WHERE id=" + id;
-		return jdbcTemplate.update(sql);
+		StringBuilder sql = new StringBuilder("DELETE FROM product WHERE id='").append(id).append("'");
+		return jdbcTemplate.update(sql.toString());
 	}
 
 //	@Override
