@@ -54,7 +54,7 @@
 												<td width="10%">
 													<div class="d-flex justify-content-around">
 														<a
-															href="<c:url value="/admin/user/edit?userId="/>">
+															href="<c:url value="/admin/order/detail?orderId=${order.id}"/>">
 															<button type="button"
 																class="btn btn-outline-primary block">
 																<svg class="bi" width="1em" height="1em"

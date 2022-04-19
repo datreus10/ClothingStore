@@ -11,6 +11,8 @@ public class Order {
 	private LocalDateTime orderDate;
 	private BigDecimal totalPrice;
 	private Integer totalQuantity;
+	private String address;
+	private String phone;
 	private String payment;
 	private String status;
 
@@ -99,5 +101,21 @@ public class Order {
 	public String priceFormatted() {
 		DecimalFormat df = new DecimalFormat("#,###");
 		return df.format(totalPrice)+" VNĐ";
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

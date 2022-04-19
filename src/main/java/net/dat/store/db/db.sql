@@ -45,6 +45,32 @@ INSERT INTO `order` VALUES (1,1,'2022-04-09 21:37:50',100000,1,'Thanh toán khi 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `order_detail`
+--
+
+DROP TABLE IF EXISTS `order_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_detail` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `product_option_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  `total_price` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+LOCK TABLES `order_detail` WRITE;
+/*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `product`
 --
 
@@ -58,7 +84,7 @@ CREATE TABLE `product` (
   `description` text NOT NULL,
   `images` tinytext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +93,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (4,'Áo thun','100000','Áo siêu đẹp, thoáng mát','at1.jpg,at2.jpg');
+INSERT INTO `product` VALUES (5,'weq','213','<p>asd</p>','img1.jpg,img2.jpg'),(6,'hello','1234','<p>asdw<strong>wqe</strong></p>','img1.jpg,img2.jpg'),(7,'test','123','<p>asd</p>','temp.png'),(8,'test2','123','<p>qweasd</p>','temp.png'),(13,'test','123','<p>asd</p>','temp.png');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +111,7 @@ CREATE TABLE `product_option` (
   `color` varchar(45) NOT NULL,
   `quantity` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +120,7 @@ CREATE TABLE `product_option` (
 
 LOCK TABLES `product_option` WRITE;
 /*!40000 ALTER TABLE `product_option` DISABLE KEYS */;
-INSERT INTO `product_option` VALUES (1,4,'XL','white',10),(2,4,'L','red',5);
+INSERT INTO `product_option` VALUES (3,7,'xl','red',10),(4,8,'xl','red',11),(14,8,'m','white',44),(15,8,'s','white',22);
 /*!40000 ALTER TABLE `product_option` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +141,7 @@ CREATE TABLE `user` (
   `address` varchar(100) NOT NULL,
   `role` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,4 +163,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-13 14:25:08
+-- Dump completed on 2022-04-19 15:13:28
