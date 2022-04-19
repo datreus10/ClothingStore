@@ -23,28 +23,26 @@ public class ProductService {
 		this.productOptionDAO = productOptionDAO;
 	}
 
-	public int addProduct(Product p,List<Integer>lstId) {
-		int result = productDAO.save(p,lstId);
-		if (result != 1)
-			throw new IllegalStateException("Oop!! Some thing went wrong");
-		return result;
-	}
+//	public int addProduct(Product p,List<Integer>lstId) {
+//		int result = productDAO.save(p,lstId);
+//		if (result != 1)
+//			throw new IllegalStateException("Oop!! Some thing went wrong");
+//		return result;
+//	}
 	
 	public int addProductAndOpt(Product p) {
-		List<Integer> lstId = new ArrayList<Integer>();
-		int result = productDAO.save(p,lstId);
+		int result = productDAO.save(p);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
-		Integer productID = lstId.get(0);
 		for (ProductOption opt : p.getOptions()) {
-			opt.setProductId(productID);	
+			opt.setProductId(p.getId());	
 		}
 		productOptionDAO.saveList(p.getOptions());
 		return result;
 	}
 	
 	public List<Product> getProducts() {
-		List<Product> products= productDAO.getAll();
+		List<Product> products= productDAO.get(100);
 		for (Product product : products) {
 			product.setOptions(productOptionDAO.getOptions(product.getId()));
 		}
@@ -52,14 +50,14 @@ public class ProductService {
 	}
 	
 	public int deleteById(String id) {
-		int result = productDAO.delete(Integer.valueOf(id));
+		int result = productDAO.delete(id);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 		return result;
 	}
 	
 	public Product getById(String id) {
-		Product p= productDAO.getById(Integer.valueOf(id))
+		Product p= productDAO.getById(id)
 				.orElseThrow(() -> new NotFoundException(String.format("Product with id % not found", id)));
 		p.setOptions(productOptionDAO.getOptions(p.getId()));
 		return p;

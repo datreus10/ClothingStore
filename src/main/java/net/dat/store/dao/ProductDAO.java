@@ -5,21 +5,15 @@ import java.util.Optional;
 
 import net.dat.store.model.Product;
 
-
-
 public interface ProductDAO {
 
 	int save(Product newProduct);
-	
-	int save(Product newProduct,List<Integer> returnId);
 
-	//int[] save( List<Product> products,List<Integer> returnId);
-	
-	List<Product> getAll();
+	List<Product> get(int limit);
 
-	Optional<Product> getById(Integer id);
+	Optional<Product> getById(String id);
 
 	int update(Product product);
 
-	int delete(Integer id);
+	int delete(String id);
 }

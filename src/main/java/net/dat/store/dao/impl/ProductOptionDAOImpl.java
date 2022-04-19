@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,23 +25,29 @@ public class ProductOptionDAOImpl implements ProductOptionDAO {
 
 	@Override
 	public int save(ProductOption pOption) {
-		String sql = "INSERT INTO product_option(product_id,size,color,quantity) VALUES(?,?,?,?)";
-		return jdbcTemplate.update(sql, pOption.getProductId(), pOption.getSize(), pOption.getColor(),
+		String sql = "INSERT INTO product_option(id,product_id,size,color,quantity) VALUES(?,?,?,?,?)";
+		pOption.setId(UUID.randomUUID().toString());
+		return jdbcTemplate.update(sql, 
+				pOption.getId(),
+				pOption.getProductId(), 
+				pOption.getSize(), 
+				pOption.getColor(),
 				pOption.getQuantity());
 	}
 
 	@Override
 	public int[] saveList(List<ProductOption> options) {
-		String sql = "INSERT INTO product_option(product_id,size,color,quantity) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO product_option(id,product_id,size,color,quantity) VALUES(?,?,?,?,?)";
 		return jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				ProductOption opt = options.get(i);
-				ps.setInt(1, opt.getProductId());
-				ps.setString(2, opt.getSize());
-				ps.setString(3, opt.getColor());
-				ps.setInt(4, opt.getQuantity());
+				ps.setString(1, UUID.randomUUID().toString());
+				ps.setString(2, opt.getProductId());
+				ps.setString(3, opt.getSize());
+				ps.setString(4, opt.getColor());
+				ps.setInt(5, opt.getQuantity());
 			}
 
 			@Override
@@ -51,20 +58,20 @@ public class ProductOptionDAOImpl implements ProductOptionDAO {
 	}
 
 	@Override
-	public List<ProductOption> getOptions(Integer productId) {
-		String sql = "SELECT * FROM product_option WHERE product_id=" + productId;
-		return jdbcTemplate.query(sql, new RowMapper<ProductOption>() {
+	public List<ProductOption> getOptions(String productId) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM product_option WHERE product_id='").append(productId).append("'");
+		return jdbcTemplate.query(sql.toString(), new RowMapper<ProductOption>() {
 
 			@Override
 			public ProductOption mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new ProductOption(rs.getInt("id"), productId, rs.getString("size"), rs.getString("color"), rs.getInt("quantity"));
+				return new ProductOption(rs.getString("id"), productId, rs.getString("size"), rs.getString("color"), rs.getInt("quantity"));
 			}
 
 		});
 	}
 
 	@Override
-	public int deleteById(Integer id) {
+	public int deleteById(String id) {
 		String sql = "DELETE FROM product_option WHERE id=" + id;
 		return jdbcTemplate.update(sql);
 	}

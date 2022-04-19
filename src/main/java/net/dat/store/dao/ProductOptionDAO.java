@@ -9,9 +9,9 @@ public interface ProductOptionDAO {
 
 	int[] saveList(List<ProductOption> options);
 
+	List<ProductOption> getOptions(String productId);
+
 	int update(ProductOption opt);
 
-	List<ProductOption> getOptions(Integer productId);
-
-	int deleteById(Integer id);
+	int deleteById(String id);
 }

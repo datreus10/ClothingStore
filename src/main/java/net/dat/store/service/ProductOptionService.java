@@ -13,7 +13,7 @@ public class ProductOptionService {
 	}
 	
 	public int deleteById(String id) {
-		int result = productOptionDAO.deleteById(Integer.valueOf(id));
+		int result = productOptionDAO.deleteById(id);
 		if (result != 1)
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 		return result;

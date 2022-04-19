@@ -32,13 +32,13 @@ public class UserService {
 			throw new IllegalStateException("Oop!! Some thing went wrong");
 	}
 	
-	public User getUser(String id) {
-		return userDAO.getById(Integer.valueOf(id))
+	public User getById(String id) {
+		return userDAO.getById(id)
 				.orElseThrow(() -> new NotFoundException(String.format("User with id % not found", id)));
 	}
 
 	public List<User> getUsers() {
-		return userDAO.getAll();
+		return userDAO.get(100);
 	}
 
 	public AuthUserDTO validateUser(User loginUser) {
@@ -48,8 +48,7 @@ public class UserService {
 	}
 
 	public int deleteUserById(String userId) {
-		Integer usrId = Integer.valueOf(userId);
-		int rowAffect = userDAO.delete(usrId);
+		int rowAffect = userDAO.delete(userId);
 		if (rowAffect < 1)
 			throw new IllegalStateException("Can not delete user with id=" + userId);
 		return rowAffect;

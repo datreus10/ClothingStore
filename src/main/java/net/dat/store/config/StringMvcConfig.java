@@ -22,7 +22,7 @@ public class StringMvcConfig implements WebMvcConfigurer {
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/clothing_store?useSSL=false");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/clothing_store?useSSL=false&useUnicode=yes&characterEncoding=UTF-8");
 		dataSource.setUsername("d");
 		dataSource.setPassword("28220000");
 		return dataSource;

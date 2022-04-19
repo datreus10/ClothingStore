@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Order {
-	private Integer id;
-	private Integer userId;
+	private String id;
+	private String userId;
 	private LocalDateTime orderDate;
 	private BigDecimal totalPrice;
 	private Integer totalQuantity;
@@ -16,19 +16,19 @@ public class Order {
 	private String payment;
 	private String status;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUser_id(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -72,25 +72,34 @@ public class Order {
 		this.status = status;
 	}
 
-	public Order(Integer id, Integer userId, LocalDateTime orderDate, BigDecimal totalPrice, Integer totalQuantity,
-			String payment, String status) {
+	
+
+	public Order(String id, String userId, LocalDateTime orderDate, BigDecimal totalPrice, Integer totalQuantity,
+			String address, String phone, String payment, String status) {
 		this.id = id;
 		this.userId = userId;
 		this.orderDate = orderDate;
 		this.totalPrice = totalPrice;
 		this.totalQuantity = totalQuantity;
+		this.address = address;
+		this.phone = phone;
 		this.payment = payment;
 		this.status = status;
 	}
 	
-	public Order(Integer userId, LocalDateTime orderDate, BigDecimal totalPrice, Integer totalQuantity,
-			String payment, String status) {
+	public Order(String userId, LocalDateTime orderDate, BigDecimal totalPrice, Integer totalQuantity,
+			String address, String phone, String payment, String status) {
 		this.userId = userId;
 		this.orderDate = orderDate;
 		this.totalPrice = totalPrice;
 		this.totalQuantity = totalQuantity;
+		this.address = address;
+		this.phone = phone;
 		this.payment = payment;
 		this.status = status;
+	}
+
+	public Order() {
 	}
 
 	public String getDateFormatted() {

@@ -2,6 +2,7 @@ package net.dat.store.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,20 +15,27 @@ import net.dat.store.model.User;
 class UserDAOTest {
 
 	private UserDAO userDAO;
-	private User normalUser;
-	private User adminUser;
+	private List<User> users;
 
 	@BeforeEach
 	void setup() {
 		userDAO = new UserDAOImpl(ConfigDB.getJdbcTemplate());
-		normalUser = new User("bgate3", "1234","bgate@gmail.com", "Bill Gates", "0123456789", "Microsoft - USA", "user");
-		adminUser = new User("sjob", "1234","sjob@gmail.com", "Steve Jobs", "0123456789", "Apple - USA", "admin");
+		
+		// Users
+		users = new ArrayList<User>();
+		// id: c6024af0-a256-4842-a5ac-60a06201c4d2
+		users.add(new User("dat1", "1234", "dat1@gmail.com", "Nguyễn Thành Đạt", "0123456789", "ktx khu A, Thủ Đức, Tp.HCM", "admin"));
+		// id: 0b1d5078-8ba9-4aeb-8549-f50c52fedad5
+		users.add(new User("dat2", "1234", "dat2@gmail.com", "dat nguyen thanh", "0123456789", "ktx khu B, Thủ Đức, Tp.HCM", "user"));
 	}
 
 	@Test
 	void testSave() {
-		assertTrue(userDAO.save(normalUser) > 0);
-		//assertTrue(userDAO.save(adminUser) > 0);
+		for (User user : users) {
+			assertTrue(userDAO.save(user) > 0);		
+			System.out.println(user.getId());
+		}
+		
 	}
 
 	@Test
@@ -37,7 +45,7 @@ class UserDAOTest {
 
 	@Test
 	void testDelete() {
-		System.out.println(userDAO.delete(2));
+		//System.out.println(userDAO.delete(2));
 	}
 
 	@Test
@@ -47,7 +55,7 @@ class UserDAOTest {
 
 	@Test
 	void testGetAll() {
-		List<User> users = userDAO.getAll();
+		List<User> users = userDAO.get(100);
 		assertTrue(!users.isEmpty());
 		for (User user : users) {
 			System.out.println(user);

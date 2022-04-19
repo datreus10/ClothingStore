@@ -30,7 +30,7 @@
 							</div>
 							<div class="card-content">
 								<div class="card-body">
-									<form:form class="form form-vertical" modelAttribute="product">
+									<form class="form form-vertical" modelAttribute="product">
 										<div class="form-body">
 											<div class="row">
 												<div class="col-12">
@@ -104,7 +104,7 @@
 												</div>
 											</div>
 										</div>
-									</form:form>
+									</form>
 								</div>
 							</div>
 

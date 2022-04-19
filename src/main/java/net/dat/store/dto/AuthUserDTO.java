@@ -1,16 +1,16 @@
 package net.dat.store.dto;
 
 public class AuthUserDTO {
-	private Integer userId;
+	private String userId;
 	private String username;
 	private String fullname;
 	private String role;
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -38,7 +38,7 @@ public class AuthUserDTO {
 		this.role = role;
 	}
 
-	public AuthUserDTO(Integer userId, String username, String fullname, String role) {
+	public AuthUserDTO(String userId, String username, String fullname, String role) {
 		super();
 		this.userId = userId;
 		this.username = username;

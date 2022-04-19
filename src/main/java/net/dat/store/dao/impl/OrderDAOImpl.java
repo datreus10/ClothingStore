@@ -6,11 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -33,35 +32,28 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public int save(Order order) {
-		String sql = "INSERT INTO clothing_store.order(user_id, order_date, total_price, total_quantity, payment, status) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO clothing_store.order(id,user_id, order_date, total_price, total_quantity, payment, status,address,phone) VALUES(?,?,?,?,?,?,?,?,?)";
+		order.setId(UUID.randomUUID().toString());
+		return jdbcTemplate.update(sql, 
+				order.getId(),
+				order.getUserId(),
+				Timestamp.valueOf(order.getOrderDate()),
+				order.getTotalPrice(),
+				order.getTotalQuantity(),
+				order.getPayment(),
+				order.getStatus());
 
-		return jdbcTemplate.update(sql, new PreparedStatementSetter() {
-
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, order.getUserId());
-				ps.setTimestamp(2, Timestamp.valueOf(order.getOrderDate()));
-				ps.setBigDecimal(3, order.getTotalPrice());
-				ps.setInt(4, order.getTotalQuantity());
-				ps.setNString(5, order.getPayment());
-				ps.setNString(6, order.getStatus());
-				
-			}
-			
-		});
-		
-		
 	}
 
 	@Override
-	public Optional<Order> getById(Integer id) {
-		String sql = "SELECT * FROM order where id=" + id;
+	public Optional<Order> getById(String id) {
+		String sql = "SELECT * FROM clothing_store.order where id=" + id;
 		return jdbcTemplate.query(sql, new OrderRowMapper()).stream().findFirst();
 	}
 
 	@Override
-	public List<Order> getByUserId(Integer userId) {
-		String sql = "SELECT * FROM order where user_id=" + userId;
+	public List<Order> getByUserId(String userId) {
+		String sql = "SELECT * FROM clothing_store.order where user_id=" + userId;
 		return jdbcTemplate.query(sql, new OrderRowMapper());
 	}
 
@@ -69,41 +61,41 @@ public class OrderDAOImpl implements OrderDAO {
 
 		@Override
 		public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Order(rs.getInt("id"),rs.getInt("user_id"), rs.getTimestamp("order_date").toLocalDateTime(),
-					rs.getBigDecimal("total_price"), rs.getInt("total_quantity"), rs.getNString("payment"),
-					rs.getNString("status"));
+			return new Order(rs.getString("id"), rs.getString("user_id"), rs.getTimestamp("order_date").toLocalDateTime(),
+					rs.getBigDecimal("total_price"), rs.getInt("total_quantity"), rs.getNString("address"),
+					rs.getNString("phone"), rs.getNString("payment"), rs.getNString("status"));
 		}
 
 	}
 
-	@Override
-	public int save(Order order, List<Integer> returnId) {
-		String sql = "INSERT INTO order(user_id,order_date,total_price,total_quantity,payment,status) values(?,?,?,?,?,?)";
-		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
-		int result = jdbcTemplate.update(new PreparedStatementCreator() {
+//	@Override
+//	public int save(Order order, List<Integer> returnId) {
+//		String sql = "INSERT INTO clothing_store.order(user_id,order_date,total_price,total_quantity,payment,status) values(?,?,?,?,?,?)";
+//		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
+//		int result = jdbcTemplate.update(new PreparedStatementCreator() {
+//
+//			@Override
+//			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+//				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//				ps.setInt(1, order.getUserId());
+//				ps.setTimestamp(2, Timestamp.valueOf(order.getOrderDate()));
+//				ps.setBigDecimal(3, order.getTotalPrice());
+//				ps.setInt(4, order.getTotalQuantity());
+//				ps.setNString(5, order.getPayment());
+//				ps.setNString(5, order.getStatus());
+//				return ps;
+//			}
+//		}, keyHolder);
+//		if (result > 0) {
+//			Integer orderId = keyHolder.getKey().intValue();
+//			returnId.add(orderId);
+//		}
+//		return result;
+//	}
 
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				ps.setInt(1, order.getUserId());
-				ps.setTimestamp(2, Timestamp.valueOf(order.getOrderDate()));
-				ps.setBigDecimal(3, order.getTotalPrice());
-				ps.setInt(4, order.getTotalQuantity());
-				ps.setNString(5, order.getPayment());
-				ps.setNString(5, order.getStatus());
-				return ps;
-			}
-		}, keyHolder);
-		if (result > 0) {
-			Integer orderId = keyHolder.getKey().intValue();
-			returnId.add(orderId);
-		}
-		return result;
-	}
-
 	@Override
-	public List<Order> getAll() {
-		String sql = "SELECT * FROM clothing_store.order LIMIT 100";
+	public List<Order> get(int limit) {
+		String sql = "SELECT * FROM clothing_store.order LIMIT "+limit;
 		return jdbcTemplate.query(sql, new OrderRowMapper());
 	}
 }

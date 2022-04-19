@@ -10,11 +10,11 @@ public interface UserDAO {
 
 	public int update(User user);
 
-	public int delete(Integer id);
+	public int delete(String id);
 
-	public Optional<User> getById(Integer id);
+	public Optional<User> getById(String id);
 
-	public List<User> getAll();
+	public List<User> get(int limit);
 	
 	Optional<User> validateUser(User loginUser);
 }

@@ -1,8 +1,8 @@
 package net.dat.store.model;
 
 public class ProductOption {
-	private Integer id;
-	private Integer productId;
+	private String id;
+	private String productId;
 	private String size;
 	private String color;
 	private Integer quantity;
@@ -11,7 +11,7 @@ public class ProductOption {
 		
 	}
 	
-	public ProductOption(Integer id, Integer productId, String size, String color, Integer quantity) {
+	public ProductOption(String id, String productId, String size, String color, Integer quantity) {
 		this.id = id;
 		this.productId = productId;
 		this.size = size;
@@ -19,19 +19,19 @@ public class ProductOption {
 		this.quantity = quantity;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
@@ -59,7 +59,7 @@ public class ProductOption {
 		this.quantity = quantity;
 	}
 
-	public ProductOption(Integer productId, String size, String color, Integer quantity) {
+	public ProductOption(String productId, String size, String color, Integer quantity) {
 		this.productId = productId;
 		this.size = size;
 		this.color = color;

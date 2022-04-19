@@ -2,13 +2,10 @@ package net.dat.store.model;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class Product {
-	private Integer id;
+	private String id;
 	private String name;
 	private BigDecimal price;
 	private String description;
@@ -28,7 +25,7 @@ public class Product {
 		
 	}
 
-	public Product(Integer id, String name, BigDecimal price, String description, String images) {
+	public Product(String id, String name, BigDecimal price, String description, String images) {
 		this(name, price, description, images);
 		this.id = id;
 		
@@ -50,11 +47,11 @@ public class Product {
 
 	
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

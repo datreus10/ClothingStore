@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -30,49 +30,49 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Order Id</label>
-                                                <input type="text" id="first-name-vertical" class="form-control" name="fname" placeholder="First Name">
+                                                <input type="text" class="form-control" value="${order.id}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="email-id-vertical">Customer's name</label>
-                                                <input type="email" id="email-id-vertical" class="form-control" name="email-id" placeholder="Email">
+                                                <input type="text" class="form-control" value="${user.fullname}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="contact-info-vertical">Address</label>
-                                                <input type="number" id="contact-info-vertical" class="form-control" name="contact" placeholder="Mobile">
+                                                <input type="text" class="form-control" value="${order.address}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-vertical">Phone number</label>
-                                                <input type="password" id="password-vertical" class="form-control" name="contact" placeholder="Password">
+                                                <input type="text" class="form-control" value="${order.phone}" readonly="readonly">
                                             </div>
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-vertical">Payment method</label>
-                                                <input type="password" id="password-vertical" class="form-control" name="contact" placeholder="Password">
+                                                <input type="text" class="form-control" value="${order.payment}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-vertical">Status</label>
-                                                <input type="password" id="password-vertical" class="form-control" name="contact" placeholder="Password">
+                                                <input type="text" class="form-control" value="${order.status}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-vertical">Order date</label>
-                                                <input type="password" id="password-vertical" class="form-control" name="contact" placeholder="Password">
+                                                <input type="text" class="form-control" value="${order.orderDate}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-vertical">Total price</label>
-                                                <input type="password" id="password-vertical" class="form-control" name="contact" placeholder="Password">
+                                                <input type="text" class="form-control" value="${order.totalPrice}" readonly="readonly">
                                             </div>
                                         </div>
                                         

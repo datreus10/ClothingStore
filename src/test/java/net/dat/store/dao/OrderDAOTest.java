@@ -26,8 +26,18 @@ class OrderDAOTest {
 
 	@Test
 	void testSave() {
-		Order order = new Order(1,LocalDateTime.now(),new BigDecimal("100000"),1,"Thanh toán khi nhận hàng","Đang xử lý");
-		assertTrue(orderDAO.save(order)>0);
+		//Order order = new Order(1,LocalDateTime.now(),new BigDecimal("100000"),1,"Thanh toán khi nhận hàng","Đang xử lý");
+//		Order order = new Order();
+//		order.setUser_id(11);
+//		order.setOrderDate(LocalDateTime.now());
+//		order.setPayment("Thanh toán khi nhận hàng");
+//		order.setAddress("ktx khu B, đhqg, TP.HCM");
+//		order.setPhone("0123456789");
+//		order.setStatus("Đang xử lý");
+//		order.setTotalPrice(new BigDecimal("2000000"));
+//		order.setTotalQuantity(2);
+//		
+//		assertTrue(orderDAO.save(order)>0);
 	}
 
 	@Test

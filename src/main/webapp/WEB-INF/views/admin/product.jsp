@@ -5,11 +5,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
 <c:import url="../layout/header.jsp">
 
 </c:import>
-
+</head>
 <body>
 	<div id="app">
 		<c:import url="sidebar.jsp">

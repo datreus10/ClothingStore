@@ -8,9 +8,12 @@ import net.dat.store.model.Order;
 public interface OrderDAO {
 	int save(Order order);
 
-	int save(Order order, List<Integer> returnId);
-	List<Order> getAll();
-	List<Order> getByUserId(Integer userId);
+	//int save(Order order, List<Integer> returnId);
 
-	Optional<Order> getById(Integer id);
+	List<Order> get(int limit);
+
+	List<Order> getByUserId(String userId);
+
+	Optional<Order> getById(String id);
+
 }

@@ -1,7 +1,7 @@
 package net.dat.store.model;
 
 public class User {
-	private Integer id;
+	private String id;
 	private String username;
 	private String password;
 	private String email;
@@ -10,11 +10,11 @@ public class User {
 	private String address;
 	private String role;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -80,7 +80,7 @@ public class User {
 	public User() {
 	}
 
-	public User(Integer id, String username, String password,String email, String fullname, String phone, String address,
+	public User(String id, String username, String password,String email, String fullname, String phone, String address,
 			String role) {
 		this(username,password,email,fullname,phone,address,role);
 		this.id = id;

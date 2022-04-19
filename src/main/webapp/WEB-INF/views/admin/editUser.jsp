@@ -1,16 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
+<head>
 <c:import url="../layout/header.jsp">
 
 </c:import>
-
+</head>
 <body>
 	<div id="app">
 		<c:import url="sidebar.jsp">

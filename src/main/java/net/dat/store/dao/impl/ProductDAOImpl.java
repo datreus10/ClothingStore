@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -39,27 +40,33 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public int save(Product newProduct) {
-		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
-		return jdbcTemplate.update(sql, newProduct.getName(),newProduct.getPrice(),newProduct.getDescription(),newProduct.getImages());
+		String sql = "INSERT INTO product(id,name,price,description,images) VALUES (?,?,?,?,?)";
+		newProduct.setId(UUID.randomUUID().toString());
+		return jdbcTemplate.update(sql, 
+				newProduct.getId(),
+				newProduct.getName(),
+				newProduct.getPrice(),
+				newProduct.getDescription(),
+				newProduct.getImages());
 	}
 
 	@Override
-	public List<Product> getAll() {
-		String sql = "SELECT * FROM product LIMIT 100";
+	public List<Product> get(int limit) {
+		String sql = "SELECT * FROM product LIMIT "+limit;
 		return jdbcTemplate.query(sql, new ProductRowMapper());
 	}
 
 	@Override
-	public Optional<Product> getById(Integer id) {
-		String sql = "SELECT * FROM product WHERE id=" + id;
-		return jdbcTemplate.query(sql, new ProductRowMapper()).stream().findFirst();
+	public Optional<Product> getById(String id) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM product WHERE id='").append(id).append("'");
+		return jdbcTemplate.query(sql.toString(), new ProductRowMapper()).stream().findFirst();
 	}
 
 	class ProductRowMapper implements RowMapper<Product> {
 
 		@Override
 		public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Product(rs.getInt("id"), 
+			return new Product(rs.getString("id"), 
 					rs.getNString("name"), 
 					rs.getBigDecimal("price"),
 					rs.getNString("description"), 
@@ -71,37 +78,42 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public int update(Product product) {
 		String sql = "UPDATE product SET name=?,price=?,description=?,images=? where id=?";
-		return jdbcTemplate.update(sql, product.getName(),product.getPrice(),product.getDescription(),product.getImages(),product.getId());
+		return jdbcTemplate.update(sql, 
+				product.getName(),
+				product.getPrice(),
+				product.getDescription(),
+				product.getImages(),
+				product.getId());
 	}
 
 	@Override
-	public int delete(Integer id) {
+	public int delete(String id) {
 		String sql = "DELETE FROM product WHERE id=" + id;
 		return jdbcTemplate.update(sql);
 	}
 
-	@Override
-	public int save(Product newProduct, List<Integer> returnId) {
-		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
-		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
-		int result = jdbcTemplate.update(new PreparedStatementCreator() {
-
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				ps.setNString(1, newProduct.getName());
-				ps.setBigDecimal(2, newProduct.getPrice());
-				ps.setNString(3, newProduct.getDescription());
-				ps.setString(4, newProduct.getImages());
-				return ps;
-			}
-		}, keyHolder);
-		if (result > 0) {
-			Integer productId = keyHolder.getKey().intValue();
-			returnId.add(productId);
-		}
-		return result;
-	}
+//	@Override
+//	public int save(Product newProduct, List<Integer> returnId) {
+//		String sql = "INSERT INTO product(name,price,description,images) VALUES (?,?,?,?)";
+//		KeyHolder keyHolder = new GeneratedKeyHolder(); // return id when insert
+//		int result = jdbcTemplate.update(new PreparedStatementCreator() {
+//
+//			@Override
+//			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+//				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//				ps.setNString(1, newProduct.getName());
+//				ps.setBigDecimal(2, newProduct.getPrice());
+//				ps.setNString(3, newProduct.getDescription());
+//				ps.setString(4, newProduct.getImages());
+//				return ps;
+//			}
+//		}, keyHolder);
+//		if (result > 0) {
+//			Integer productId = keyHolder.getKey().intValue();
+//			returnId.add(productId);
+//		}
+//		return result;
+//	}
 
 //	@Override
 //	public int[] save(List<Product> products, List<Integer> returnId) {

@@ -4,33 +4,33 @@ package net.dat.store.model;
 import java.math.BigDecimal;
 
 public class OrderDetail {
-	private Integer id;
-	private Integer orderId;
-	private Integer productOptionId;
+	private String id;
+	private String orderId;
+	private String productOptionId;
 	private Integer quantity;
 	private BigDecimal totalPrice;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Integer orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 
-	public Integer getproductOptionId() {
+	public String getproductOptionId() {
 		return productOptionId;
 	}
 
-	public void setProductOptionId(Integer productOptionId) {
+	public void setProductOptionId(String productOptionId) {
 		this.productOptionId = productOptionId;
 	}
 
