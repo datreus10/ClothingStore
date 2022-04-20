@@ -3,7 +3,6 @@ package net.dat.store.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,8 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import net.dat.store.dao.OrderDetailDAO;
-import net.dat.store.dao.impl.OrderDAOImpl.OrderRowMapper;
-import net.dat.store.model.Order;
 import net.dat.store.model.OrderDetail;
 
 @Repository

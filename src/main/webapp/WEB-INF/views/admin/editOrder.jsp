@@ -64,39 +64,41 @@
 									</div>
 									<div class="col-12">
 										<div class="form-group">
-											<label for="password-vertical">Status</label> 
+											<label for="password-vertical">Status</label>
 											<fieldset class="form-group">
-													<select name="role" class="form-select" id="basicSelect">
-														
-														
-														<c:forEach var="status" items="${listStatus}">
-															<option ${order.status.equals(status)? "selected" : ""} value="${status}">${status}</option>
-													
-														</c:forEach>
-													</select>
-												</fieldset>
-																
+												<select name="role" class="form-select" id="order-status">
+
+
+													<c:forEach var="status" items="${listStatus}">
+														<option ${order.status.equals(status)? "selected" : ""}
+															value="${status}">${status}</option>
+
+													</c:forEach>
+												</select>
+											</fieldset>
+
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group">
 											<label for="password-vertical">Order date</label> <input
-												type="text" class="form-control" value="${order.orderDate}"
+												type="text" class="form-control" value="${order.getDateFormatted()}"
 												readonly="readonly">
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group">
 											<label for="password-vertical">Total price</label> <input
-												type="text" class="form-control" value="${order.priceFormatted()}"
-												readonly="readonly">
+												type="text" class="form-control"
+												value="${order.priceFormatted()}" readonly="readonly">
 										</div>
 									</div>
 
 
 
 									<div class="col-12 d-flex justify-content-end">
-										<button type="submit" class="btn btn-primary me-1 mb-1">Update Status</button>	
+										<button type="button" id="update-status" class="btn btn-primary me-1 mb-1">Update
+											Status</button>
 									</div>
 								</div>
 							</div>
@@ -147,7 +149,77 @@
 
 
 	</div>
+	
+	<div>
+	<!-- button trigger for  Vertically Centered modal -->
+	<button type="button" class="notifiModal" data-bs-toggle="modal"
+		data-bs-target="#notifiModal"
+		style="visibility: hidden; display: none;"></button>
+	<!-- Vertically Centered modal Modal -->
+	<div class="modal fade" id="notifiModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Notification
+					</h5>
 
+				</div>
+				<div class="modal-body">
+					<p>Successfully update order status</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary ml-1"
+						data-bs-dismiss="modal">
+						<i class="bx bx-check d-block d-sm-none"></i> <span
+							class="d-none d-sm-block">OK</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	<script
+src="<c:url value="/resources/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"/>">
+
+</script>
+<script
+src="<c:url value="/resources/assets/js/bootstrap.bundle.min.js"/>">
+
+</script>
+<script src="<c:url value="/resources/assets/js/mazer.js"/>">
+
+</script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#update-status").click(function() {
+				const data = {
+					orderId: '${order.id}',
+					status: $("#order-status").find(":selected").text(),
+				}
+				console.log(data);
+				$.ajax({
+					type : "POST",
+					url : "/ClothingStore/admin/order/update-status",
+					data : data,
+					dataType : "json",
+					encode : true,
+				}).done(function (data) {
+					console.log(data);
+					$("button.notifiModal").click();
+                    $("#notifiModal .modal-footer button").on("click", function () {
+                        location.reload();
+                    });
+				});
+				
+			});
+		})
+	</script>
 
 </body>
 

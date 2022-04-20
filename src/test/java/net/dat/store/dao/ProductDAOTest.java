@@ -1,22 +1,17 @@
 package net.dat.store.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.dat.store.dao.impl.ProductDAOImpl;
-import net.dat.store.dao.impl.ProductOptionDAOImpl;
 import net.dat.store.model.Product;
-import net.dat.store.model.ProductOption;
-import net.dat.store.model.User;
 
 class ProductDAOTest {
 	

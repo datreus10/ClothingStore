@@ -94,11 +94,7 @@
 													</select>
 												</fieldset>
 
-												<!-- <div class="form-group">
-                                                    <label for="email-id-column">Role</label>
-                                                    <input type="email" id="email-id-column" class="form-control"
-                                                        name="email-id-column" placeholder="Role" value="${user.role}">
-                                                </div> -->
+												
 											</div>
 
 											<div class="col-12 d-flex justify-content-end">

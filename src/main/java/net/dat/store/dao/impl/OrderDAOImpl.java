@@ -1,21 +1,14 @@
 package net.dat.store.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import net.dat.store.dao.OrderDAO;
@@ -99,5 +92,11 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<Order> get(int limit) {
 		String sql = "SELECT * FROM clothing_store.order LIMIT "+limit;
 		return jdbcTemplate.query(sql, new OrderRowMapper());
+	}
+
+	@Override
+	public int updateStatus(String orderId, String status) {
+		String sql = "UPDATE clothing_store.order SET status=? WHERE id=?";
+		return jdbcTemplate.update(sql, status,orderId);
 	}
 }

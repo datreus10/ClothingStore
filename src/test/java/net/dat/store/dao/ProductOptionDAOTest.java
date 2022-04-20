@@ -1,16 +1,13 @@
 package net.dat.store.dao;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import net.dat.store.dao.impl.ProductDAOImpl;
 import net.dat.store.dao.impl.ProductOptionDAOImpl;
 import net.dat.store.model.ProductOption;
 
@@ -38,7 +35,7 @@ class ProductOptionDAOTest {
 
 	@Test
 	void testAddList() {
-		List<ProductOption> options = new ArrayList<ProductOption>();
+//		List<ProductOption> options = new ArrayList<ProductOption>();
 //		options.add(new ProductOption(5, "XL", "white", 5));
 //		options.add(new ProductOption(5, "L", "red", 5));
 

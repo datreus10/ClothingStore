@@ -23,4 +23,8 @@ public class OrderService {
 	public Order getById(String id){
 		return orderDAO.getById(id).orElseThrow(()->new NotFoundException(String.format("Order with id %s not found", id)));
 	}
+	
+	public int updateOrderStatus(String orderId,String status){
+		return orderDAO.updateStatus(orderId, status);
+	}
 }

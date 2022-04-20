@@ -16,4 +16,5 @@ public interface OrderDAO {
 
 	Optional<Order> getById(String id);
 
+	int updateStatus(String orderId,String status);
 }

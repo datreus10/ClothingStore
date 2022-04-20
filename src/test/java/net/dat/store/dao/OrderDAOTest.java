@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import net.dat.store.dao.impl.OrderDAOImpl;
 import net.dat.store.model.Order;
-import net.dat.store.model.Product;
 
 class OrderDAOTest {
 

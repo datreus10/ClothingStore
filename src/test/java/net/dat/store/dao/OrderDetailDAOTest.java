@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import net.dat.store.dao.impl.OrderDetailDAOImpl;
 import net.dat.store.model.OrderDetail;
-import net.dat.store.model.Product;
 
 class OrderDetailDAOTest {
 

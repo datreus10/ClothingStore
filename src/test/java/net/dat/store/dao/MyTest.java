@@ -1,14 +1,8 @@
 package net.dat.store.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import net.dat.store.dao.impl.OrderDAOImpl;
 import net.dat.store.dao.impl.OrderDetailDAOImpl;

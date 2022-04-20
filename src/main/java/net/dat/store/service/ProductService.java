@@ -1,6 +1,5 @@
 package net.dat.store.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import net.dat.store.dao.ProductOptionDAO;
 import net.dat.store.exception.NotFoundException;
 import net.dat.store.model.Product;
 import net.dat.store.model.ProductOption;
-import net.dat.store.model.User;
 
 @Service
 public class ProductService {
