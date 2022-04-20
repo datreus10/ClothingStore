@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -60,16 +61,18 @@ public class ProductOptionDAOImpl implements ProductOptionDAO {
 	@Override
 	public List<ProductOption> getOptions(String productId) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM product_option WHERE product_id='").append(productId).append("'");
-		return jdbcTemplate.query(sql.toString(), new RowMapper<ProductOption>() {
-
-			@Override
-			public ProductOption mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new ProductOption(rs.getString("id"), productId, rs.getString("size"), rs.getString("color"), rs.getInt("quantity"));
-			}
-
-		});
+		return jdbcTemplate.query(sql.toString(), new ProductOptionRowMapper());
 	}
 
+	class ProductOptionRowMapper implements RowMapper<ProductOption>{
+
+		@Override
+		public ProductOption mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return new ProductOption(rs.getString("id"), rs.getString("product_id"), rs.getString("size"), rs.getString("color"), rs.getInt("quantity"));
+		}
+		
+	}
+	
 	@Override
 	public int deleteById(String id) {
 		StringBuilder sql = new StringBuilder("DELETE FROM product_option WHERE id='").append(id).append("'");
@@ -80,6 +83,12 @@ public class ProductOptionDAOImpl implements ProductOptionDAO {
 	public int update(ProductOption opt) {
 		String sql = "UPDATE product_option SET size=?,color=?,quantity=? where id=?";
 		return jdbcTemplate.update(sql,opt.getSize(),opt.getColor(), opt.getQuantity(),opt.getId());
+	}
+
+	@Override
+	public Optional<ProductOption> getById(String id) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM product_option WHERE id='").append(id).append("'");
+		return jdbcTemplate.query(sql.toString(), new ProductOptionRowMapper()).stream().findFirst();
 	}
 
 }

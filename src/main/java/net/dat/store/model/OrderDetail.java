@@ -9,6 +9,15 @@ public class OrderDetail {
 	private String productOptionId;
 	private Integer quantity;
 	private BigDecimal totalPrice;
+	private ProductOption productOption;
+
+	public ProductOption getProductOption() {
+		return productOption;
+	}
+
+	public void setProductOption(ProductOption productOption) {
+		this.productOption = productOption;
+	}
 
 	public String getId() {
 		return id;
@@ -47,6 +56,22 @@ public class OrderDetail {
 	}
 
 	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public OrderDetail(String id, String orderId, String productOptionId, Integer quantity, BigDecimal totalPrice) {
+		this.id = id;
+		this.orderId = orderId;
+		this.productOptionId = productOptionId;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+	}
+
+	public OrderDetail(String orderId, String productOptionId, Integer quantity, BigDecimal totalPrice) {
+		super();
+		this.orderId = orderId;
+		this.productOptionId = productOptionId;
+		this.quantity = quantity;
 		this.totalPrice = totalPrice;
 	}
 

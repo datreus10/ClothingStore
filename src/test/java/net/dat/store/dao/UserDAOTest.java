@@ -23,9 +23,9 @@ class UserDAOTest {
 		
 		// Users
 		users = new ArrayList<User>();
-		// id: c6024af0-a256-4842-a5ac-60a06201c4d2
+		// id: b2e2e7a4-d821-449a-b3e7-027acc67d9fa
 		users.add(new User("dat1", "1234", "dat1@gmail.com", "Nguyễn Thành Đạt", "0123456789", "ktx khu A, Thủ Đức, Tp.HCM", "admin"));
-		// id: 0b1d5078-8ba9-4aeb-8549-f50c52fedad5
+		// id: c18e03ab-8a2d-470d-936b-fb4825c48205
 		users.add(new User("dat2", "1234", "dat2@gmail.com", "dat nguyen thanh", "0123456789", "ktx khu B, Thủ Đức, Tp.HCM", "user"));
 	}
 

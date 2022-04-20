@@ -16,22 +16,28 @@ import net.dat.store.dao.impl.ProductDAOImpl;
 import net.dat.store.dao.impl.ProductOptionDAOImpl;
 import net.dat.store.model.Product;
 import net.dat.store.model.ProductOption;
+import net.dat.store.model.User;
 
 class ProductDAOTest {
 	
 	private ProductDAO productDAO;
+	private List<Product> products;
 
 	@BeforeEach
 	void setup() {
 		productDAO = new ProductDAOImpl(ConfigDB.getJdbcTemplate());
+		products = new ArrayList<Product>();
+		products.add(new Product("Áo Thun Cổ Tròn Ngắn Tay", new BigDecimal("391000") , "Thiết kế họa tiết Venom. Có khuôn mặt của Venom ở mặt sau.", "img"));
+		products.add(new Product("Quần Short Co Giãn Dáng Slim Fit", new BigDecimal("489000") , "Tận hưởng vẻ ngoài tinh tế với kiểu cắt, thiết kế và chất liệu vải đẹp mắt.", "img"));
 	}
 
 	@Test
 	void testSave() {
-		Product p = new Product("Quần kaki", new BigDecimal("200000"), "Quần đẹp, năng động, trẻ trung", "kk1.jpg,kk2.jpg");
-		List<Integer> returnId = new ArrayList<Integer>();
-		//assertTrue(productDAO.save(p, returnId) > 0);
-		System.out.println(returnId.get(0));
+		for (Product p: products) {
+			assertTrue(productDAO.save(p) > 0);		
+			System.out.println(p.getId());
+		}
+		
 	}
 
 	@Test

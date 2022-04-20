@@ -1,5 +1,6 @@
 package net.dat.store.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,11 +43,12 @@ public class OrderController {
 	public ModelAndView geOrderDetail(HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView mv = new ModelAndView("admin/editOrder");
 		Order order = orderService.getById(req.getParameter("orderId"));
-		OrderDetail orderDetail = detailService.getByOrderId(order.getId());
+		List<OrderDetail> orderDetails = detailService.getByOrderId(order.getId());
 		User user = userService.getById(order.getUserId());
 		mv.addObject("order", order);
-		mv.addObject("orderDetail", orderDetail);
+		mv.addObject("orderDetails", orderDetails);
 		mv.addObject("user", user);
+		mv.addObject("listStatus", Arrays.asList("Đang xử lý","Đang giao hàng","Đã thanh toán","Đã hủy"));
 		mv.addObject("activeBar", 3);
 		return mv;
 	}

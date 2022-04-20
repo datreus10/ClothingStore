@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/net/dat/store/config/StringMvcConfig.java=UTF-8
+encoding//src/main/java/net/dat/store/controller/OrderController.java=UTF-8
 encoding//src/main/java/net/dat/store/model/Order.java=UTF-8
 encoding//src/main/java/net/dat/store/model/Product.java=UTF-8
 encoding//src/test/java/net/dat/store/dao/MyTest.java=UTF-8

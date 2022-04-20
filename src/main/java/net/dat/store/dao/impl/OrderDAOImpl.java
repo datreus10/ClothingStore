@@ -41,14 +41,16 @@ public class OrderDAOImpl implements OrderDAO {
 				order.getTotalPrice(),
 				order.getTotalQuantity(),
 				order.getPayment(),
-				order.getStatus());
+				order.getStatus(),
+				order.getAddress(),
+				order.getPhone());
 
 	}
 
 	@Override
 	public Optional<Order> getById(String id) {
-		String sql = "SELECT * FROM clothing_store.order where id=" + id;
-		return jdbcTemplate.query(sql, new OrderRowMapper()).stream().findFirst();
+		StringBuilder sql = new StringBuilder("SELECT * FROM clothing_store.order where id='").append(id).append("'");
+		return jdbcTemplate.query(sql.toString(), new OrderRowMapper()).stream().findFirst();
 	}
 
 	@Override

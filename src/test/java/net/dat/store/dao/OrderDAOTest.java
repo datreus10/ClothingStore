@@ -1,43 +1,40 @@
 package net.dat.store.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.dat.store.dao.impl.OrderDAOImpl;
-import net.dat.store.dao.impl.ProductDAOImpl;
-import net.dat.store.dao.impl.ProductOptionDAOImpl;
 import net.dat.store.model.Order;
+import net.dat.store.model.Product;
 
 class OrderDAOTest {
 
 	private OrderDAO orderDAO;
+	private List<Order> orders;
 
 	@BeforeEach
 	void setup() {
 		orderDAO = new OrderDAOImpl(ConfigDB.getJdbcTemplate());
+		
+		orders = new ArrayList<Order>();
+		orders.add(new Order("b2e2e7a4-d821-449a-b3e7-027acc67d9fa", LocalDateTime.now(), new BigDecimal("200000"),2 ,"ktx khu A, Thủ Đức, Tp.HCM","0123456789" , "Thanh toán khi nhận hàng", "Đang xử lý"));
+		orders.add(new Order("b2e2e7a4-d821-449a-b3e7-027acc67d9fa", LocalDateTime.now(), new BigDecimal("400000"),3 ,"ktx khu A, Thủ Đức, Tp.HCM","0123456789" , "Thanh toán khi nhận hàng", "Đang xử lý"));
 	}
 
 	@Test
 	void testSave() {
-		//Order order = new Order(1,LocalDateTime.now(),new BigDecimal("100000"),1,"Thanh toán khi nhận hàng","Đang xử lý");
-//		Order order = new Order();
-//		order.setUser_id(11);
-//		order.setOrderDate(LocalDateTime.now());
-//		order.setPayment("Thanh toán khi nhận hàng");
-//		order.setAddress("ktx khu B, đhqg, TP.HCM");
-//		order.setPhone("0123456789");
-//		order.setStatus("Đang xử lý");
-//		order.setTotalPrice(new BigDecimal("2000000"));
-//		order.setTotalQuantity(2);
-//		
-//		assertTrue(orderDAO.save(order)>0);
+		for (Order order: orders) {
+			assertTrue(orderDAO.save(order) > 0);		
+			System.out.println(order.getId());
+		}
 	}
 
 	@Test
